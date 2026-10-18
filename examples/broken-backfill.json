@@ -1,0 +1,6 @@
+{
+  "name": "deliberately-lossy-backfill",
+  "migration_sql": ["UPDATE business SET value='lost' WHERE id=1"],
+  "assertions": [{"name": "business identifier unchanged", "sql": "SELECT value='v-1' FROM business WHERE id=1"}],
+  "expected_control": "FAIL"
+}

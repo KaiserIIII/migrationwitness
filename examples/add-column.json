@@ -1,0 +1,7 @@
+{
+  "name": "trusted-additive-migration",
+  "migration_sql": ["ALTER TABLE business ADD COLUMN note text"],
+  "concurrent_workload": true,
+  "assertions": [{"name": "new column exists", "sql": "SELECT EXISTS(SELECT FROM information_schema.columns WHERE table_schema='public' AND table_name='business' AND column_name='note')"}],
+  "expected_control": "PASS"
+}

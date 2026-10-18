@@ -1,0 +1,15 @@
+# Safety and release boundary
+
+This is a local lab harness for reviewed code, not a security sandbox. No existing DSN option is exposed. PostgreSQL is newly initialized in a private directory and has no Linux TCP listener. All built-in business data is synthetic. Never run as root, point PostgreSQL binaries at unreviewed executables, or pass private/production scripts. An opted-in external command can ignore environment variables and access arbitrary resources as the current user; an isolated VM/WSL is recommended.
+
+Built-in scenarios use100 seed rows,60 mutation statements for concurrent writers or10 explicitly interleaved backfill updates; <=20 connections,32MB shared_buffers, statement/lock timeouts and finite observation barriers. These are workload budgets, not hard memory/CPU/disk quotas. SQL statements and custom cases can override DB settings, allocate unbounded results, run multiple long statements or spawn detached descendants. There is no hard whole-scenario wall limit for arbitrary trusted scripts. POSIX process groups are not cgroups; native Windows descendant containment is unavailable. Native Windows database startup is refused. Dedicated Linux/WSL execution and offline Windows operations are distinguished in acceptance results.
+
+On cleanup, only owned tempfile paths under the actual tempfile root with matching token are removed, after a server stop attempt. Source evidence output is not recursively deleted. If stop fails, the directory is retained for inspection. Avoid untrusted symlink manipulation or concurrent writers in the evidence path: evidence integrity is checked but the filesystem is not an adversarial boundary.
+
+Reports include SQL text, parameters, synthetic original values, filenames and DB logs. They can contain secrets if callers put secrets in SQL/argv. The tool does not publish or redact arbitrary caller secrets. No host environment dump or GitHub credential is collected. Preserve original raw logs locally; independently audit any evidence before sharing.
+
+HTML/Markdown report values are escaped and HTML uses a no-script content security policy. No Excel formulas or active content are emitted. Hash verification refuses unsafe paths, unexpected inventory and changed content, but the manifest is unsigned and replaceable by its owner. No claim of forensic authenticity.
+
+Four independent review defects were reproduced (uncommitted-state false PASS, surviving child after parent exit, malformed manifest exception, startup evidence failure leaving a live postmaster) and corrected with regressions. Review reproduction records remain external. The first startup red regression orphan was identified by exact owned command line and terminated; no other DB/process was touched.
+
+Third-party binaries, raw GitHub comments, runtime caches, PG data directories and research snapshots are not in the source archive. Runtime dependencies are separate installations with their own licenses. The source distribution is original MIT code and synthetic examples. No remote repository, push, release, package or upstream PR is authorized by this task.
