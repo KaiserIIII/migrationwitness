@@ -63,6 +63,8 @@ assert result['outcome'] == 'PASS'
 
 For an external migration command, provide a literal argv list in a reviewed JSON case and explicitly pass `--allow-trusted-command`. Its environment points to the newly created cluster through PostgreSQL environment variables. Commands must honor those variables. No shell expansion is performed. A trusted command can still ignore that connection and access other resources: review it and run inside an isolated lab. This is not an OS sandbox.
 
+`examples/trusted-psql.json` is an actual tested additive migration via official `psql` under concurrent writes. Run it with the same `run` command and `--allow-trusted-command`. Python subprocesses are explicitly set to UTF8; raw stdout/stderr bytes are additionally retained as base64. Non-UTF8 output is marked instead of silently treated as an exact UTF8 transcript.
+
 ## Evidence and limitations
 
 - Reports retain SQL text, synthetic raw values, outcomes, SQLSTATE, transaction status, query elapsed time, `pg_locks`, `pg_stat_activity`, blocker PIDs and before/after definitions/ACLs. Caller scripts could expose private data or secrets: never supply them.

@@ -16,36 +16,36 @@
 
 ### Task 1: Environment and pilot
 
-- [ ] Install official signed Alpine packages in dedicated WSL; record versions, hashes and source commits.
-- [ ] Run native index interruption and one actual tool plan; save commands/stdout/stderr/catalog evidence; write VALUE_GATE.md.
+- [x] Install official signed Alpine packages in dedicated WSL; record versions, hashes and source commits.
+- [x] Run native index interruption and one actual tool plan; save commands/stdout/stderr/catalog evidence; write VALUE_GATE.md.
 
 ### Task 2: Evidence and safety core (TDD)
 
 Files: tests/test_evidence.py, tests/test_safety.py, migrationwitness/evidence.py, cluster.py.
 Interfaces: Evidence(root).event(kind, **fields), seal(), verify(root); Cluster(pg_bin, root) context manager yielding connect() for its own database only.
 
-- [ ] Test refuses existing evidence directory, detects modified evidence, escapes HTML values, refuses missing PostgreSQL executables and root initdb; run failing tests.
-- [ ] Implement minimal append-only evidence, hashes/renderer and private lifecycle; rerun tests.
+- [x] Test refuses existing evidence directory, detects modified evidence, escapes HTML values, refuses missing PostgreSQL executables and root initdb; run failing tests.
+- [x] Implement minimal append-only evidence, hashes/renderer and private lifecycle; rerun tests.
 
 ### Task 3: Runtime contracts (TDD)
 
 Files: tests/test_oracles.py, tests/test_integration.py, migrationwitness/oracles.py, runner.py, scenarios.py.
 Interfaces: compare_rows(expected, actual), evaluate(checks) -> PASS/FAIL/INCONCLUSIVE; run(scenario, pg_bin, output) -> JSON result.
 
-- [ ] Test ledger detects dropped and wrong values, unknown is not pass, all 12 expected controls on actual PG; watch missing behavior fail.
-- [ ] Implement bounded observers, SQL outcome capture, contracts and scenarios; run PG16/17.
+- [x] Test ledger detects dropped and wrong values, unknown is not pass, all 12 expected controls on actual PG; watch missing behavior fail.
+- [x] Implement bounded observers, SQL outcome capture, contracts and scenarios; run PG16/17.
 
 ### Task 4: Trusted external commands and reports (TDD)
 
 Files: tests/test_cli.py, migrationwitness/cli.py, commands.py, __main__.py, examples/.
 Interfaces: CLI list/run/verify/render; explicit trusted argv opt-in and outer timeout; command result is evidence, never correctness oracle.
 
-- [ ] Test no-shell argv, timeout/nonzero exits and report verification/CLI status behavior; run red then green.
-- [ ] Compare actual tool outputs with independent oracles; record issue-specific limitations.
+- [x] Test no-shell argv, timeout/nonzero exits and report verification/CLI status behavior; run red then green.
+- [x] Compare actual tool outputs with independent oracles; record issue-specific limitations.
 
 ### Task 5: Independent acceptance and freeze
 
-- [ ] Fresh-install tests and all native scenarios on both majors; measure selected controls and observer overhead under protocol.
-- [ ] Independent code/security/claim review; reproduce and fix real important defects with regression tests.
-- [ ] Windows core/CLI tests and WSL distinction, report actual NOT RUN cases.
-- [ ] English README, architecture, safety, dependency/competitor/upstream results and resume; local Git commit and verified source ZIP/Git bundle.
+- [x] Fresh-install tests and all native scenarios on both majors; measure selected controls and observer overhead under protocol.
+- [x] Independent code/security/claim review; reproduce and fix real important defects with regression tests.
+- [x] Windows core/CLI tests and WSL distinction, report actual NOT RUN cases.
+- [x] English README, architecture, safety, dependency/competitor/upstream results and resume; local Git commit and verified source ZIP/Git bundle.

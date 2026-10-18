@@ -1,0 +1,269 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-10-18T07:35:05.6505387Z",
+  "boundary": "Release commits and source licenses verified. Installation times UNKNOWN. Supplied pip report wheel hashes retained; source-to-wheel build attestation and bundled native-library audit not performed.",
+  "dependencies": [
+    {
+      "name": "colorama",
+      "requested_version": "0.4.6",
+      "source_repository": "https://github.com/tartley/colorama",
+      "release_tag": "0.4.6",
+      "release_commit": "3de9f013df4b470069d03d250224062e8cf15c49",
+      "release_commit_status": "VERIFIED",
+      "commit_url": "https://github.com/tartley/colorama/commit/3de9f013df4b470069d03d250224062e8cf15c49",
+      "license": "BSD-3-Clause",
+      "license_url": "https://github.com/tartley/colorama/blob/3de9f013df4b470069d03d250224062e8cf15c49/LICENSE.txt",
+      "license_text_sha256": "cac35c02686e5d04a5a7140bfb3b36e73aed496656e891102e428886d7930318",
+      "artifacts": [
+        {
+          "platform": "windows",
+          "installed_version": "0.4.6",
+          "reported_download_url": "https://files.pythonhosted.org/packages/d1/d6/3965ed04c63042e047cb6a3e6ed1a63a35087b6a609aa3a15ed8ac56c221/colorama-0.4.6-py2.py3-none-any.whl",
+          "reported_archive_sha256": "4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6"
+        }
+      ]
+    },
+    {
+      "name": "coverage",
+      "requested_version": "7.14.1",
+      "source_repository": "https://github.com/coveragepy/coveragepy",
+      "release_tag": "7.14.1",
+      "release_commit": "64d9b66fd852c1920ffe6cb8b58d7e4fdae90226",
+      "release_commit_status": "VERIFIED",
+      "commit_url": "https://github.com/coveragepy/coveragepy/commit/64d9b66fd852c1920ffe6cb8b58d7e4fdae90226",
+      "license": "Apache-2.0",
+      "license_url": "https://github.com/coveragepy/coveragepy/blob/64d9b66fd852c1920ffe6cb8b58d7e4fdae90226/LICENSE.txt",
+      "license_text_sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+      "artifacts": [
+        {
+          "platform": "windows",
+          "installed_version": "7.14.1",
+          "reported_download_url": "https://files.pythonhosted.org/packages/6f/92/fb416fc26d340dcba19518c418d6048e913186e17243982c5e435e41fa7a/coverage-7.14.1-cp313-cp313-win_amd64.whl",
+          "reported_archive_sha256": "7af486dabe8954d03b087f0021540897afe084f04e16ff5579e08cc46f871416"
+        },
+        {
+          "platform": "linux",
+          "installed_version": "7.14.1",
+          "reported_download_url": "https://files.pythonhosted.org/packages/7d/0c/2629997469a00cd069d588a41c9dc887610f2775ae89d250c4791e65272a/coverage-7.14.1-cp314-cp314-musllinux_1_2_x86_64.whl",
+          "reported_archive_sha256": "03a6f93c1ec3b7f2e77b5dbcc5573a2c21f12529a5c6bbe0f16f72303cc2fa4d"
+        }
+      ]
+    },
+    {
+      "name": "iniconfig",
+      "requested_version": "2.3.1",
+      "source_repository": "https://github.com/pytest-dev/iniconfig",
+      "release_tag": "v2.3.1",
+      "release_commit": "316fbfaf2752d89326e1e75b45cd070f5b5ace9a",
+      "release_commit_status": "VERIFIED",
+      "commit_url": "https://github.com/pytest-dev/iniconfig/commit/316fbfaf2752d89326e1e75b45cd070f5b5ace9a",
+      "license": "MIT",
+      "license_url": "https://github.com/pytest-dev/iniconfig/blob/316fbfaf2752d89326e1e75b45cd070f5b5ace9a/LICENSE",
+      "license_text_sha256": "3409fa91f7ace557894632676656e32264fe5ef7581535725dc9a23774551bd4",
+      "artifacts": [
+        {
+          "platform": "windows",
+          "installed_version": "2.3.1",
+          "reported_download_url": "https://files.pythonhosted.org/packages/56/43/4ca9e49d27a1fcf6bece6f6aec0ea46bb9112489b93d4b688fb415457bdb/iniconfig-2.3.1-py3-none-any.whl",
+          "reported_archive_sha256": "9121e2c1fdb355232495be3194c8dfe87ccc2d5dee45947b78e68f499790d7a7"
+        },
+        {
+          "platform": "linux",
+          "installed_version": "2.3.1",
+          "reported_download_url": "https://files.pythonhosted.org/packages/56/43/4ca9e49d27a1fcf6bece6f6aec0ea46bb9112489b93d4b688fb415457bdb/iniconfig-2.3.1-py3-none-any.whl",
+          "reported_archive_sha256": "9121e2c1fdb355232495be3194c8dfe87ccc2d5dee45947b78e68f499790d7a7"
+        }
+      ]
+    },
+    {
+      "name": "packaging",
+      "requested_version": "26.3",
+      "source_repository": "https://github.com/pypa/packaging",
+      "release_tag": "26.3",
+      "release_commit": "929fd4b1410ac7ef61ef3f45b2f5d7e87711a9b5",
+      "release_commit_status": "VERIFIED",
+      "commit_url": "https://github.com/pypa/packaging/commit/929fd4b1410ac7ef61ef3f45b2f5d7e87711a9b5",
+      "license": "Apache-2.0 OR BSD-2-Clause",
+      "license_url": "https://github.com/pypa/packaging/blob/929fd4b1410ac7ef61ef3f45b2f5d7e87711a9b5/LICENSE",
+      "license_text_sha256": "cad1ef5bd340d73e074ba614d26f7deaca5c7940c3d8c34852e65c4909686c48",
+      "artifacts": [
+        {
+          "platform": "windows",
+          "installed_version": "26.3",
+          "reported_download_url": "https://files.pythonhosted.org/packages/63/34/ba1c580383c9eada3711951fef0795c80b829a078d72188184bcab9dd527/packaging-26.3-py3-none-any.whl",
+          "reported_archive_sha256": "d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c"
+        },
+        {
+          "platform": "linux",
+          "installed_version": "26.3",
+          "reported_download_url": "https://files.pythonhosted.org/packages/63/34/ba1c580383c9eada3711951fef0795c80b829a078d72188184bcab9dd527/packaging-26.3-py3-none-any.whl",
+          "reported_archive_sha256": "d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c"
+        }
+      ]
+    },
+    {
+      "name": "pluggy",
+      "requested_version": "1.7.0",
+      "source_repository": "https://github.com/pytest-dev/pluggy",
+      "release_tag": "1.7.0",
+      "release_commit": "4c7f6365f2dde09c11e72db67d0f615231d64c19",
+      "release_commit_status": "VERIFIED",
+      "commit_url": "https://github.com/pytest-dev/pluggy/commit/4c7f6365f2dde09c11e72db67d0f615231d64c19",
+      "license": "MIT",
+      "license_url": "https://github.com/pytest-dev/pluggy/blob/4c7f6365f2dde09c11e72db67d0f615231d64c19/LICENSE",
+      "license_text_sha256": "d6b65e6c213a5d0b577911d34d6e5949b9f59d76c238c5071a2f3fc16cfb2606",
+      "artifacts": [
+        {
+          "platform": "windows",
+          "installed_version": "1.7.0",
+          "reported_download_url": "https://files.pythonhosted.org/packages/40/9e/2b38731e0fc536806f16490e1a12d7f0dc2a1235aa8cc07bcc75416a7daa/pluggy-1.7.0-py3-none-any.whl",
+          "reported_archive_sha256": "7dd7b0d8832ba3cb632c306926ded123429211b83641b35dc5c41ad2d34f9bec"
+        },
+        {
+          "platform": "linux",
+          "installed_version": "1.7.0",
+          "reported_download_url": "https://files.pythonhosted.org/packages/40/9e/2b38731e0fc536806f16490e1a12d7f0dc2a1235aa8cc07bcc75416a7daa/pluggy-1.7.0-py3-none-any.whl",
+          "reported_archive_sha256": "7dd7b0d8832ba3cb632c306926ded123429211b83641b35dc5c41ad2d34f9bec"
+        }
+      ]
+    },
+    {
+      "name": "psycopg",
+      "requested_version": "3.3.4",
+      "source_repository": "https://github.com/psycopg/psycopg",
+      "release_tag": "3.3.4",
+      "release_commit": "83f110367cdd249cc0a352e2246ecea9e878e5a0",
+      "release_commit_status": "VERIFIED",
+      "commit_url": "https://github.com/psycopg/psycopg/commit/83f110367cdd249cc0a352e2246ecea9e878e5a0",
+      "license": "LGPL-3.0-only",
+      "license_url": "https://github.com/psycopg/psycopg/blob/83f110367cdd249cc0a352e2246ecea9e878e5a0/LICENSE.txt",
+      "license_text_sha256": "e3a994d82e644b03a792a930f574002658412f62407f5fee083f2555c5f23118",
+      "artifacts": [
+        {
+          "platform": "windows",
+          "installed_version": "3.3.4",
+          "reported_download_url": "https://files.pythonhosted.org/packages/5c/e0/7b3dee031daae7743609ce3c746565d4a3ed7c2c186479eb48e34e838c64/psycopg-3.3.4-py3-none-any.whl",
+          "reported_archive_sha256": "b6bbc25ccf05c8fad3b061d9db2ef0909a555171b84b07f29458a447253d679a"
+        },
+        {
+          "platform": "linux",
+          "installed_version": "3.3.4",
+          "reported_download_url": "https://files.pythonhosted.org/packages/5c/e0/7b3dee031daae7743609ce3c746565d4a3ed7c2c186479eb48e34e838c64/psycopg-3.3.4-py3-none-any.whl",
+          "reported_archive_sha256": "b6bbc25ccf05c8fad3b061d9db2ef0909a555171b84b07f29458a447253d679a"
+        }
+      ]
+    },
+    {
+      "name": "psycopg-binary",
+      "requested_version": "3.3.4",
+      "source_repository": "https://github.com/psycopg/psycopg",
+      "release_tag": "3.3.4",
+      "release_commit": "83f110367cdd249cc0a352e2246ecea9e878e5a0",
+      "release_commit_status": "VERIFIED",
+      "commit_url": "https://github.com/psycopg/psycopg/commit/83f110367cdd249cc0a352e2246ecea9e878e5a0",
+      "license": "LGPL-3.0-only",
+      "license_url": "https://github.com/psycopg/psycopg/blob/83f110367cdd249cc0a352e2246ecea9e878e5a0/LICENSE.txt",
+      "license_text_sha256": "e3a994d82e644b03a792a930f574002658412f62407f5fee083f2555c5f23118",
+      "artifacts": [
+        {
+          "platform": "windows",
+          "installed_version": "3.3.4",
+          "reported_download_url": "https://files.pythonhosted.org/packages/bd/3b/218efbc9e645becd80cdf651acda05f85cfe546b7a9c0458c7cbc8fe1f74/psycopg_binary-3.3.4-cp313-cp313-win_amd64.whl",
+          "reported_archive_sha256": "dbfdb9b6cc79f31104a7b162a2b921b765fcc62af6c00540a167a8de47e4ed38"
+        },
+        {
+          "platform": "linux",
+          "installed_version": "3.3.4",
+          "reported_download_url": "https://files.pythonhosted.org/packages/c4/b1/f6670f00fa7ea601584623f6c11602ab92117d83eaff885e0210f6de7418/psycopg_binary-3.3.4-cp314-cp314-musllinux_1_2_x86_64.whl",
+          "reported_archive_sha256": "47c656a8a7ba6eb0cff1801a4caaa9c8bdc12d03080e273aff1c8ac39971a77e"
+        }
+      ]
+    },
+    {
+      "name": "pygments",
+      "requested_version": "2.21.0",
+      "source_repository": "https://github.com/pygments/pygments",
+      "release_tag": "2.21.0",
+      "release_commit": "a43b45dcf081b6010c6ab4428f149f7f6d2499c4",
+      "release_commit_status": "VERIFIED",
+      "commit_url": "https://github.com/pygments/pygments/commit/a43b45dcf081b6010c6ab4428f149f7f6d2499c4",
+      "license": "BSD-2-Clause",
+      "license_url": "https://github.com/pygments/pygments/blob/a43b45dcf081b6010c6ab4428f149f7f6d2499c4/LICENSE",
+      "license_text_sha256": "a9d66f1d526df02e29dce73436d34e56e8632f46c275bbdffc70569e882f9f17",
+      "artifacts": [
+        {
+          "platform": "windows",
+          "installed_version": "2.21.0",
+          "reported_download_url": "https://files.pythonhosted.org/packages/71/46/17f022dd3e953bf20a04a028a21ec746d942f8d2af30fa0f124fa0e6a684/pygments-2.21.0-py3-none-any.whl",
+          "reported_archive_sha256": "2363c69b61c4a97c838da3b130dcd6468f4848992b21a82f2a63ec34377137d9"
+        },
+        {
+          "platform": "linux",
+          "installed_version": "2.21.0",
+          "reported_download_url": "https://files.pythonhosted.org/packages/71/46/17f022dd3e953bf20a04a028a21ec746d942f8d2af30fa0f124fa0e6a684/pygments-2.21.0-py3-none-any.whl",
+          "reported_archive_sha256": "2363c69b61c4a97c838da3b130dcd6468f4848992b21a82f2a63ec34377137d9"
+        }
+      ]
+    },
+    {
+      "name": "pytest",
+      "requested_version": "9.0.3",
+      "source_repository": "https://github.com/pytest-dev/pytest",
+      "release_tag": "9.0.3",
+      "release_commit": "a7d58d7a21b78581e636bbbdea13c66ad1657c1e",
+      "release_commit_status": "VERIFIED",
+      "commit_url": "https://github.com/pytest-dev/pytest/commit/a7d58d7a21b78581e636bbbdea13c66ad1657c1e",
+      "license": "MIT",
+      "license_url": "https://github.com/pytest-dev/pytest/blob/a7d58d7a21b78581e636bbbdea13c66ad1657c1e/LICENSE",
+      "license_text_sha256": "ca836a5f9ecca3b2f350230faa20a48fb8b145653b5568d784862df864706b9b",
+      "artifacts": [
+        {
+          "platform": "windows",
+          "installed_version": "9.0.3",
+          "reported_download_url": "https://files.pythonhosted.org/packages/d4/24/a372aaf5c9b7208e7112038812994107bc65a84cd00e0354a88c2c77a617/pytest-9.0.3-py3-none-any.whl",
+          "reported_archive_sha256": "2c5efc453d45394fdd706ade797c0a81091eccd1d6e4bccfcd476e2b8e0ab5d9"
+        },
+        {
+          "platform": "linux",
+          "installed_version": "9.0.3",
+          "reported_download_url": "https://files.pythonhosted.org/packages/d4/24/a372aaf5c9b7208e7112038812994107bc65a84cd00e0354a88c2c77a617/pytest-9.0.3-py3-none-any.whl",
+          "reported_archive_sha256": "2c5efc453d45394fdd706ade797c0a81091eccd1d6e4bccfcd476e2b8e0ab5d9"
+        }
+      ]
+    },
+    {
+      "name": "setuptools",
+      "requested_version": "80.9.0",
+      "source_repository": "https://github.com/pypa/setuptools",
+      "release_tag": "v80.9.0",
+      "release_commit": "9c4d383631d3951fcae0afd73b5d08ff5a262976",
+      "release_commit_status": "VERIFIED",
+      "commit_url": "https://github.com/pypa/setuptools/commit/9c4d383631d3951fcae0afd73b5d08ff5a262976",
+      "license": "MIT",
+      "license_url": "https://github.com/pypa/setuptools/blob/9c4d383631d3951fcae0afd73b5d08ff5a262976/LICENSE",
+      "license_text_sha256": "86da0f01aeae46348a3c3d465195dc1ceccde79f79e87769a64b8da04b2a4741",
+      "artifacts": []
+    },
+    {
+      "name": "tzdata",
+      "requested_version": "2026.5",
+      "source_repository": "https://github.com/python/tzdata",
+      "release_tag": "2026.5",
+      "release_commit": "9493aaba724e991b239647cb7bfe977d019ce1b9",
+      "release_commit_status": "VERIFIED",
+      "commit_url": "https://github.com/python/tzdata/commit/9493aaba724e991b239647cb7bfe977d019ce1b9",
+      "license": "Apache-2.0",
+      "license_url": "https://github.com/python/tzdata/blob/9493aaba724e991b239647cb7bfe977d019ce1b9/LICENSE",
+      "license_text_sha256": "df58f69ea88683035d720b5375bcef0cf5aeaa98a1d098d572e0992c378deb46",
+      "artifacts": [
+        {
+          "platform": "windows",
+          "installed_version": "2026.5",
+          "reported_download_url": "https://files.pythonhosted.org/packages/94/21/1e5995a1c920cce14e4bffae20c665ec10e7ed03ab25e006cd741092b718/tzdata-2026.5-py2.py3-none-any.whl",
+          "reported_archive_sha256": "b683bd1b6659ddcd810ff02ad09ba821d4bf1065072805063eb35c49617905ac"
+        }
+      ]
+    }
+  ],
+  "excluded": "Local report paths, raw metadata, runtime caches. Source tag resolution is not source-to-wheel attestation."
+}
