@@ -1,5 +1,7 @@
 # MigrationWitness
 
+[中文说明](README_ZH.md) · [Actual pg-osc case](PG_OSC_197_RESULTS.md) · [Acceptance results](CROSS_VERSION_RESULTS.md)
+
 Run a PostgreSQL migration against a disposable database while checking application contracts, lock waits and recovery state. MigrationWitness is an experimental test harness, not a migration engine or a production database monitor.
 
 It creates its own private local cluster, seeds synthetic business rows, runs controlled clients, observes PostgreSQL and evaluates declared invariants independently of migration exit codes. JSON, HTML and Markdown reports link checks to raw SQL and catalog events. Nothing connects to an existing database.
@@ -7,7 +9,7 @@ It creates its own private local cluster, seeds synthetic business rows, runs co
 ## Supported scope
 
 - PostgreSQL 16 and 17 on Linux, including a dedicated WSL environment on Windows.
-- Python 3.12+; the actual tested versions and counts are recorded in [TEST_RESULTS.md](docs/TEST_RESULTS.md).
+- Python 3.12+ is the declared minimum; actual fresh-install acceptance used Linux Python3.14.8 and Windows Python3.13.0. Other interpreters have not been accepted. See [CROSS_VERSION_RESULTS.md](CROSS_VERSION_RESULTS.md).
 - Windows can install the Python package, list scenarios and verify/render offline evidence. Native Windows PostgreSQL cluster execution is deliberately refused; use WSL/Linux. Native Windows PostgreSQL acceptance is **NOT RUN**.
 - Twelve native control scenarios, editable trusted SQL/JSON cases, opt-in external argv, independent committed-data/role/constraint checks, SQLSTATE and lock evidence.
 
@@ -48,11 +50,13 @@ python -m migrationwitness run examples/add-column.json --pg-bin /usr/lib/postgr
 
 `privileges_bad` intentionally recreates a table without restoring SELECT for an existing role: migration SQL succeeds, but the old reader gets SQLSTATE 42501. `index_cancel` waits until PostgreSQL reports the concurrent-index lock barrier, cancels that connection and records the invalid index before cleanup. These demonstrate expected native behaviors. They are not newly discovered PostgreSQL bugs.
 
+A real pg-osc0.9.10 integer-to-bigint migration also completed with exit0 while losing explicit SELECT/INSERT/UPDATE grants in six fresh controlled runs across PG16/17. Six native ALTER controls preserved those grants; all twelve retained the intended owner and data. This reproduces known [pg-osc#197](https://github.com/shayonj/pg-osc/issues/197) under a small permission fixture, without concurrent business writes. Read the [actual results](PG_OSC_197_RESULTS.md), [fixed Ruby procedure](env/PG_OSC_REPRODUCTION.md) and [derived real-run summary](examples/pgosc-197-summary.json). It is not a production accuracy or first-discovery claim.
+
 CLI exit codes: **0** contract PASS; **2** contract FAIL/INCONCLUSIVE or evidence verification failure; **1** invalid input, environment or framework ERROR. Broken controls intentionally return 2. `control_agreement` records whether an intentionally broken/fixed fixture behaved as expected; it is not a correctness verdict for a real migration.
 
 ## Caller cases and API
 
-`examples/*.json` are editable. SQL is trusted executable input. The built-in fixture is `public.business(id integer PRIMARY KEY, value text NOT NULL)` with 100 deterministic rows. A custom case may supply `setup_sql`, exactly one of `migration_sql` or `migration_argv`, optional `concurrent_workload`, and boolean SQL `assertions`. Assertions must return one boolean cell; ambiguous results are INCONCLUSIVE. Leaving a transaction open fails the commit boundary; final business rows and assertions use separate connections. Setup SQL must not alter the fixture's initial business rows unless a changed-data failure is intended.
+`examples/add-column.json`, `examples/broken-backfill.json` and `examples/trusted-psql.json` are editable input cases. `pgosc-197-summary.json` is evidence summary, not scenario input. SQL is trusted executable input. The built-in fixture is `public.business(id integer PRIMARY KEY, value text NOT NULL)` with 100 deterministic rows. A custom case may supply `setup_sql`, exactly one of `migration_sql` or `migration_argv`, optional `concurrent_workload`, and boolean SQL `assertions`. Assertions must return exactly one result set containing one boolean cell; multiple result sets and other ambiguous results are INCONCLUSIVE, with all result sets retained. Leaving a transaction open fails the commit boundary; final business rows and assertions use separate connections. Setup SQL must not alter the fixture's initial business rows unless a changed-data failure is intended.
 
 ```python
 from pathlib import Path
@@ -83,5 +87,7 @@ MW_PG_BIN=/usr/lib/postgresql/17/bin python -m pytest -q
 ```
 
 Without `MW_PG_BIN`, real-database tests are skipped and must be reported NOT RUN. [EXPERIMENT_PROTOCOL.md](docs/EXPERIMENT_PROTOCOL.md) defines selected controls before execution. [ARCHITECTURE.md](docs/ARCHITECTURE.md), [SECURITY.md](docs/SECURITY.md), [FINAL_REPORT.md](FINAL_REPORT.md) and [RESUME.md](RESUME.md) describe the delivery and evidence locations.
+
+Fresh installed-package regressions passed40 tests with1 root-only skip on each PostgreSQL major; the root-refusal test passed separately. Fresh Windows offline validation passed21 with20 explicit skips. Windows/native PostgreSQL remains unsupported/NOT RUN. [GitHub Actions](.github/workflows/ci.yml) is prepared for Windows/offline and bounded Linux/PG16/17; hosted execution and local Docker lifecycle are NOT RUN. Local tests do not establish hosted-CI success. See [CI preparation](docs/CI_PREPARATION.md).
 
 MIT licensed. Third-party tools and PostgreSQL are not bundled; their own licenses apply.

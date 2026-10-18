@@ -1,24 +1,36 @@
 # Local handoff
 
-Decision: **READY_WITH_LIMITATIONS**, local source prototype only. No remote repository, push, Release, package publication or production connection.
+**PUBLICATION_READY — source experimental edition only.** No remote repository, push, Release, package publication or production connection. Publishing is pending user authorization; see [PUBLISHING.md](PUBLISHING.md).
 
-Start with README.md, docs/EXPERIMENT_PROTOCOL.md and docs/UPSTREAM_VALIDATION.md. Runtime implementation was frozen at669062b9def25a338d95b21b3541d70196881970. Later local commit adds delivery documentation, provenance locks and reproducible experiment adapters; no product runtime algorithm change.
+Read [README.md](README.md), [README_ZH.md](README_ZH.md), [CROSS_VERSION_RESULTS.md](CROSS_VERSION_RESULTS.md), [PG_OSC_197_RESULTS.md](PG_OSC_197_RESULTS.md) and [PUBLICATION_READINESS.md](PUBLICATION_READINESS.md). Baseline c9edadf is preserved; accepted runtime/test fixes are commit445e7ff18c529d51e73aa6962138f3f10a838b5f. The final candidate adds documentation, CI and a reproduction adapter, with no further core change. Final SHA/tree and artifact hashes are external because a commit cannot contain its own hash.
 
-Source: `E:/final/migrationwitness-20261018`. External evidence/artifacts: `E:/final/migrationwitness-evidence-20261018`. Dedicated WSL distro: `MigrationWitness-20261018`, lab root `/opt/migrationwitness`. Other projects were not modified.
+## Install and reproduce
 
-Install into a clean matching interpreter. Default `pip install .` resolves pinned primary dependencies; exact accepted Windows3.13/Alpine3.14 wheel locks include transitive dependencies and hashes. For that matching platform:
+Use a fresh matching interpreter/venv and official PostgreSQL binaries in an isolated Linux environment as a non-root user. Exact accepted Windows3.13 and Alpine3.14 dependency locks are platform-specific, not universal wheel hashes:
 
 ```sh
-python -m pip install --require-hashes -r requirements-py314-alpine.lock
+python3 -m venv .venv
+. .venv/bin/activate
+python -m pip install --require-hashes --only-binary=:all: -r requirements-py314-alpine.lock
 python -m pip install --no-build-isolation --no-deps .
+python -m migrationwitness list
+MW_PG_BIN=/usr/libexec/postgresql17 python -m pytest -q
+python -m migrationwitness run concurrent_dml --pg-bin /usr/libexec/postgresql17 --output runs/new-dml
+python -m migrationwitness verify runs/new-dml
 ```
 
-Use the Windows lock in a Windows3.13 venv. Other platforms/Python versions need their own reviewed lock and acceptance; do not assume these wheel hashes are universal. Official source commits/licenses for Python dependencies are included in `DEPENDENCY_PROVENANCE.json`. The runtime package itself is original source, not a published PyPI artifact.
+On Windows3.13 use `requirements-py313-windows.lock` and `.venv/Scripts/python.exe`. Windows supports offline commands/reports; native Windows DB execution is refused. For general installs on other platforms `pip install .` resolves pinned primary dependencies, but those environments have not been accepted. Hash-locked installs retain install reports/freeze in the external acceptance evidence.
 
-Run `python -m migrationwitness list`, then one of the README commands on a newly created output directory as an unprivileged Linux user. Use `scripts/acceptance.py` for12 selected controls. `scripts/schema_diff_probe.py` and `scripts/upstream_probe.py` rerun actual trusted tool comparisons with explicit binary paths; install reviewed pinned tools separately. These adapters record expected broken-tool paths, so their script exit code concerns probe execution; inspect JSON/catalog evidence for migration correctness. A failed recipe is not a reproduced upstream bug.
+Every evidence output directory must be new. CLI0=PASS,2=FAIL/INCONCLUSIVE or verification failure,1=invalid input/environment/framework ERROR. Broken controls should return2. `scripts/acceptance.py` runs12 native controls; the earlier72-run experiment is historical. The current full small suite passed40/1 on both PG majors. See [env/README.md](env/README.md) for the dedicated environment.
 
-Reports: `result.json`, `events.jsonl` event sequence references, `business-ledger.json`, `postgres-log.json`, `report.html`, `report.md`, `manifest.json`. Run `python -m migrationwitness verify PATH` on Linux or Windows after copying evidence. Keep trusted manifest hashes externally. The raw SQL/values and command argv are not automatically redacted.
+`scripts/schema_diff_probe.py` and `scripts/upstream_probe.py` are optional trusted-tool adapters with explicit binary paths. [env/PG_OSC_REPRODUCTION.md](env/PG_OSC_REPRODUCTION.md) gives compatible pinned legacy Ruby and the actual `scripts/pgosc_197_probe.py` commands. Probe exit0 means investigation completed, not migration correctness: inspect outcome/catalog/role evidence. `examples/pgosc-197-summary.json` is derived evidence, not editable input.
 
-Recovery: use the final external `migrationwitness.bundle` with `git clone migrationwitness.bundle restored`; compare HEAD/tree with `DELIVERY.json`, inspect PUBLIC_FILES.json and run tests. The source ZIP is a Git-archive of that final tree, excluding runtime/evidence/binaries/caches. Preserve the evidence directory separately; source archive is not a replacement for raw logs. The WSL lab is retained; all owned experiment databases are stopped/removed except preserved stopped pilot data directories in the dedicated lab. Do not reset Docker or remove unrelated resources.
+## Evidence and recovery
 
-No further feature development is needed for this delivery. The single highest-value remaining validation is a genuine pg-osc#197 run in a compatible pinned upstream Ruby environment. Native Windows PG is unsupported; production/failover validation remains outside accepted scope.
+Reports include result.json, ordered events.jsonl, optional business-ledger.json, postgres-log.json, report.html, report.md and manifest.json. Offline `verify` checks integrity relative to a supplied unsigned manifest, not authenticity. Raw caller SQL/values/argv are not automatically redacted. Public archives contain no raw environment/stdout or third-party binary.
+
+Source: `E:/final/migrationwitness-20261018`. New private evidence/artifacts: `E:/final/migrationwitness-final-evidence-20261018`; original evidence `E:/final/migrationwitness-evidence-20261018` is untouched. Dedicated WSL `MigrationWitness-20261018`, supplemental prefix `/opt/migrationwitness-final-20261018`. All experiment-owned active clusters have been stopped/cleaned; retain the lab for recovery, not production use.
+
+Read external DELIVERY.json and SHA256SUMS. Restore `migrationwitness-source-experiment.bundle` using `git clone BUNDLE new-restored-directory`; compare final HEAD/tree, run `git fsck --full` and independently verify each PUBLIC_FILES.json file hash. The ZIP is a Git archive of exactly that public tree. Manifest self-hash is intentionally null; external tree/archive hashes bind it. Raw evidence is retained separately and is not for automatic publication. Baseline backup and original freeze packages remain separate.
+
+Hosted CI/Docker lifecycle is NOT RUN; workflow is prepared and local Windows/static checks passed. CI quotas are not product hard isolation. No hard resource/descendant sandbox, production accuracy, exhaustive metadata, replication/failover or arbitrary-schedule guarantee. Stop features here. Highest-value next action is hosted CI after separately authorized publication, with only real CI/compatibility fixes if needed.

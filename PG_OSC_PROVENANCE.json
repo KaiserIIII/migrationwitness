@@ -1,0 +1,217 @@
+{
+  "format": 1,
+  "pgosc": {
+    "version": "0.9.10",
+    "commit": "0a439a873f9df1bf474cfe13060a115278b94658",
+    "source_repository": "https://github.com/shayonj/pg-osc",
+    "license": "MIT",
+    "upstream_source_files_verified_unchanged": 52
+  },
+  "ruby": {
+    "version": "3.3.0",
+    "commit": "5124f9ac7513eb590c37717337c430cb93caa151",
+    "repository": "https://github.com/ruby/ruby",
+    "license": "Ruby/BSD-2-Clause",
+    "scope": "Optional isolated legacy reproduction only"
+  },
+  "bundler": {
+    "version": "2.3.24",
+    "commit": "b835c7ea15261a5911eb3c000fe22d8b970c382e",
+    "repository": "https://github.com/ruby/rubygems",
+    "license": "MIT"
+  },
+  "build_options": {
+    "pg_query": "--with-cflags=-std=gnu11",
+    "upstream_lockfile": "UNCHANGED"
+  },
+  "gem_artifacts": [
+    {
+      "file": "bigdecimal-3.1.8.gem",
+      "sha256": "a89467ed5a44f8ae01824af49cbc575871fa078332e8f77ea425725c1ffe27be",
+      "bytes": 88576
+    },
+    {
+      "file": "google-protobuf-3.25.5-x86_64-linux.gem",
+      "sha256": "d5174f864440e724d2cc84ef183cd19625086db45351c9e81eeea48008db1c3d",
+      "bytes": 870912
+    },
+    {
+      "file": "oj-3.16.6.gem",
+      "sha256": "fd132b26686f3c2c8dc669f7066da5bdc1c773344a2f6bff57c2d563c19a5acc",
+      "bytes": 262144
+    },
+    {
+      "file": "ougai-2.0.0.gem",
+      "sha256": "2e8d522b901cb6a818ebf6b5492c237538fb4a3f5cd2e333d391663aaa7eb67e",
+      "bytes": 22528
+    },
+    {
+      "file": "pg-1.5.8.gem",
+      "sha256": "efd71939dd1d6d9f0b434dc61dee6ef64f1d2bfcd3c177598a8797c27e654f37",
+      "bytes": 223232
+    },
+    {
+      "file": "pg_query-4.2.3.gem",
+      "sha256": "1cc9955c7bce8e51e1abc11f1952e3d9d0f1cd4c16c58c56ec75d5aaf1cfd697",
+      "bytes": 2275328
+    },
+    {
+      "file": "thor-1.3.2.gem",
+      "sha256": "eef0293b9e24158ccad7ab383ae83534b7ad4ed99c09f96f1a6b036550abbeda",
+      "bytes": 56320
+    }
+  ],
+  "gem_metadata": [
+    {
+      "name": "bigdecimal",
+      "version": "3.1.8",
+      "licenses": [
+        "Ruby",
+        "BSD-2-Clause"
+      ],
+      "source_repository": "https://github.com/ruby/bigdecimal",
+      "official_metadata": "https://rubygems.org/api/v2/rubygems/bigdecimal/versions/3.1.8.json"
+    },
+    {
+      "name": "google-protobuf",
+      "version": "3.25.5",
+      "licenses": [
+        "BSD-3-Clause"
+      ],
+      "source_repository": "https://github.com/protocolbuffers/protobuf/tree/v3.25.5/ruby",
+      "official_metadata": "https://rubygems.org/api/v2/rubygems/google-protobuf/versions/3.25.5.json"
+    },
+    {
+      "name": "oj",
+      "version": "3.16.6",
+      "licenses": [
+        "MIT"
+      ],
+      "source_repository": "https://github.com/ohler55/oj",
+      "official_metadata": "https://rubygems.org/api/v2/rubygems/oj/versions/3.16.6.json"
+    },
+    {
+      "name": "ostruct",
+      "version": "0.6.0",
+      "licenses": [
+        "Ruby",
+        "BSD-2-Clause"
+      ],
+      "source_repository": "https://github.com/ruby/ostruct",
+      "official_metadata": "https://rubygems.org/api/v2/rubygems/ostruct/versions/0.6.0.json"
+    },
+    {
+      "name": "ougai",
+      "version": "2.0.0",
+      "licenses": [
+        "MIT"
+      ],
+      "source_repository": "https://github.com/tilfin/ougai",
+      "official_metadata": "https://rubygems.org/api/v2/rubygems/ougai/versions/2.0.0.json"
+    },
+    {
+      "name": "pg",
+      "version": "1.5.8",
+      "licenses": [
+        "BSD-2-Clause"
+      ],
+      "source_repository": "https://github.com/ged/ruby-pg",
+      "official_metadata": "https://rubygems.org/api/v2/rubygems/pg/versions/1.5.8.json"
+    },
+    {
+      "name": "pg_query",
+      "version": "4.2.3",
+      "licenses": [
+        "BSD-3-Clause"
+      ],
+      "source_repository": "https://github.com/pganalyze/pg_query",
+      "official_metadata": "https://rubygems.org/api/v2/rubygems/pg_query/versions/4.2.3.json"
+    },
+    {
+      "name": "thor",
+      "version": "1.3.2",
+      "licenses": [
+        "MIT"
+      ],
+      "source_repository": "https://github.com/rails/thor/tree/v1.3.2",
+      "official_metadata": "https://rubygems.org/api/v2/rubygems/thor/versions/1.3.2.json"
+    },
+    {
+      "name": "bundler",
+      "version": "2.3.24",
+      "licenses": [
+        "MIT"
+      ],
+      "source_repository": "https://github.com/rubygems/rubygems/tree/master/bundler",
+      "official_metadata": "https://rubygems.org/api/v2/rubygems/bundler/versions/2.3.24.json"
+    }
+  ],
+  "boundary": "Exact upstream source commits and original Gemfile.lock/artifact hashes fixed; optional gems are not redistributed or product runtime dependencies. A complete source-to-binary attestation/native subdependency audit is NOT RUN.",
+  "runtime_gem_source_refs": [
+    {
+      "name": "bigdecimal",
+      "repository": "https://github.com/ruby/bigdecimal",
+      "tag": "v3.1.8",
+      "commit": "ae3915ba8831cb0bbed2bc60a1345b320f2eafb4",
+      "verification": "Official release ref resolved; complete source-to-gem build attestation NOT RUN",
+      "utc": "2026-10-18T10:45:29.475798+00:00"
+    },
+    {
+      "name": "google-protobuf",
+      "repository": "https://github.com/protocolbuffers/protobuf",
+      "tag": "v3.25.5",
+      "commit": "9d0ec0f92b5b5fdeeda11f9dcecc1872ff378014",
+      "verification": "Official release ref resolved; complete source-to-gem build attestation NOT RUN",
+      "utc": "2026-10-18T10:45:31.870656+00:00"
+    },
+    {
+      "name": "oj",
+      "repository": "https://github.com/ohler55/oj",
+      "tag": "v3.16.6",
+      "commit": "cb97cda651e2657e1537742c83612c9f77ddc07a",
+      "verification": "Official release ref resolved; complete source-to-gem build attestation NOT RUN",
+      "utc": "2026-10-18T10:45:33.726869+00:00"
+    },
+    {
+      "name": "ostruct",
+      "repository": "https://github.com/ruby/ostruct",
+      "tag": "v0.6.0",
+      "commit": "0985296e721a54e8aee8bbedd666ea856bd021d5",
+      "verification": "Official release ref resolved; complete source-to-gem build attestation NOT RUN",
+      "utc": "2026-10-18T10:45:37.252877+00:00"
+    },
+    {
+      "name": "ougai",
+      "repository": "https://github.com/tilfin/ougai",
+      "tag": "v2.0.0",
+      "commit": "b5bea54ddb852241fd08f8cc5d5ee5a774df4a9d",
+      "verification": "Official release ref resolved; complete source-to-gem build attestation NOT RUN",
+      "utc": "2026-10-18T10:45:38.157998+00:00"
+    },
+    {
+      "name": "pg",
+      "repository": "https://github.com/ged/ruby-pg",
+      "tag": "v1.5.8",
+      "commit": "cb35e3f33089c38e749ff8efbbfdffbcf566f45c",
+      "verification": "Official release ref resolved; complete source-to-gem build attestation NOT RUN",
+      "utc": "2026-10-18T10:45:40.320340+00:00"
+    },
+    {
+      "name": "pg_query",
+      "repository": "https://github.com/pganalyze/pg_query",
+      "tag": "v4.2.3",
+      "commit": "4f2eed2d589c5903916df3b189643e743149286e",
+      "verification": "Official release ref resolved; complete source-to-gem build attestation NOT RUN",
+      "utc": "2026-10-18T10:45:43.057629+00:00"
+    },
+    {
+      "name": "thor",
+      "repository": "https://github.com/rails/thor",
+      "tag": "v1.3.2",
+      "commit": "33b9682da680cda9404f9961a62ec208832cbff3",
+      "verification": "Official release ref resolved; complete source-to-gem build attestation NOT RUN",
+      "utc": "2026-10-18T10:45:45.958581+00:00"
+    }
+  ],
+  "source_to_artifact_attestation": "Official source refs and installed artifact hashes recorded; full reproducible source-to-gem/native-library build attestation NOT RUN"
+}

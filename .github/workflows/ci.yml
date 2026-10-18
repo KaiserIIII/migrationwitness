@@ -1,0 +1,241 @@
+name: Bounded acceptance
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: bounded-acceptance-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHONUTF8: '1'
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTEST_DISABLE_PLUGIN_AUTOLOAD: '1'
+  PIP_DISABLE_PIP_VERSION_CHECK: '1'
+  PIP_NO_INPUT: '1'
+
+jobs:
+  windows-offline:
+    name: Windows / Python 3.13 / offline and CLI
+    runs-on: windows-2025
+    timeout-minutes: 10
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1, MIT
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0, MIT
+        with:
+          python-version: '3.13.0'
+          architecture: x64
+          check-latest: false
+      - name: Install exact Windows wheels and package
+        timeout-minutes: 5
+        run: |
+          $ErrorActionPreference = 'Stop'
+          New-Item -ItemType Directory -Force "$env:RUNNER_TEMP/ci-evidence" | Out-Null
+          python -m venv "$env:RUNNER_TEMP/ci-venv"
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          $ciPython = "$env:RUNNER_TEMP/ci-venv/Scripts/python.exe"
+          & $ciPython -m pip install --only-binary=:all: --require-hashes -r requirements-py313-windows.lock --report "$env:RUNNER_TEMP/ci-evidence/dependency-install.json"
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          & $ciPython -m pip install --no-index --no-deps --no-build-isolation . --report "$env:RUNNER_TEMP/ci-evidence/package-install.json"
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          & $ciPython -m pip freeze --all | Set-Content "$env:RUNNER_TEMP/ci-evidence/pip-freeze.txt"
+          & $ciPython -VV 2>&1 | Set-Content "$env:RUNNER_TEMP/ci-evidence/python-version.txt"
+      - name: Run the full small suite and report expected Windows skips
+        timeout-minutes: 3
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Remove-Item Env:MW_PG_BIN -ErrorAction SilentlyContinue
+          $ciPython = "$env:RUNNER_TEMP/ci-venv/Scripts/python.exe"
+          & $ciPython -m pytest -q --junitxml="$env:RUNNER_TEMP/ci-evidence/pytest.xml" --basetemp="$env:RUNNER_TEMP/ci-pytest" 2>&1 | Tee-Object "$env:RUNNER_TEMP/ci-evidence/pytest.log"
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          @'
+          import json, os, pathlib, xml.etree.ElementTree as ET
+          root = pathlib.Path(os.environ['RUNNER_TEMP']) / 'ci-evidence'
+          cases = ET.parse(root / 'pytest.xml').findall('.//testcase')
+          skipped = [{'name': c.attrib['name'], 'reason': c.find('skipped').attrib.get('message', '')} for c in cases if c.find('skipped') is not None]
+          summary = {'tests': len(cases), 'passed': len(cases)-len(skipped), 'skipped': skipped,
+                     'native_windows_postgresql': 'NOT RUN'}
+          (root / 'test-summary.json').write_text(json.dumps(summary, indent=2), encoding='utf8')
+          # Baseline collected 39; additions must execute rather than silently disappear.
+          assert len(cases) >= 39 and len(cases)-len(skipped) >= 20, summary
+          assert all(s['reason'] in ('MW_PG_BIN unset: actual PostgreSQL NOT RUN', 'POSIX process group containment only') for s in skipped), summary
+          print(json.dumps(summary, indent=2))
+          '@ | & $ciPython -
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+      - name: Installed CLI renders, verifies, and rejects tampered Unicode evidence
+        timeout-minutes: 1
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $ciPython = "$env:RUNNER_TEMP/ci-venv/Scripts/python.exe"
+          Set-Location $env:RUNNER_TEMP
+          @'
+          import json, os, pathlib, shutil, subprocess, sys
+          from migrationwitness.evidence import Evidence
+          root = pathlib.Path(os.environ['RUNNER_TEMP']) / 'ci-evidence'
+          def cli(*args, expected=0):
+              result = subprocess.run([sys.executable, '-m', 'migrationwitness', *map(str,args)], capture_output=True, text=True, encoding='utf8', timeout=20)
+              assert result.returncode == expected, (args, result.returncode, result.stdout, result.stderr)
+              return result.stdout
+          scenarios = json.loads(cli('list'))
+          assert len(scenarios) == 12 and 'index_cancel' in scenarios
+          e = Evidence(root / 'offline-中文')
+          e.write_json('result.json', {'outcome':'PASS', 'value':'中文 <script>untrusted</script>'})
+          cli('render', e.root)
+          assert '&lt;script&gt;' in (e.root / 'report.html').read_text(encoding='utf8')
+          e.seal()
+          good = json.loads(cli('verify', e.root))
+          assert good['valid'] is True
+          tampered = root / 'tampered-中文'
+          shutil.copytree(e.root, tampered)
+          (tampered / 'result.json').write_text('{}', encoding='utf8')
+          bad = json.loads(cli('verify', tampered, expected=2))
+          assert bad['valid'] is False
+          (root / 'cli-summary.json').write_text(json.dumps({'scenario_count':len(scenarios), 'valid_evidence':good, 'tampered_evidence':bad}, indent=2), encoding='utf8')
+          print('Installed offline CLI: list/render/verify/tamper rejection passed')
+          '@ | & $ciPython -
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+      - name: Retain bounded evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2, MIT
+        with:
+          name: windows-py313-offline
+          path: ${{ runner.temp }}/ci-evidence
+          retention-days: 7
+          if-no-files-found: warn
+
+  linux-postgresql:
+    name: Alpine / Python 3.14 / PostgreSQL ${{ matrix.pg }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        include:
+          - pg: '16'
+            pg_version: '16.15-r0'
+          - pg: '17'
+            pg_version: '17.11-r0'
+    env:
+      MW_CI_CONTAINER: mw-ci-pg${{ matrix.pg }}
+      MW_PG_MAJOR: ${{ matrix.pg }}
+      MW_PG_VERSION: ${{ matrix.pg_version }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1, MIT
+        with:
+          persist-credentials: false
+      - name: Verify official Alpine rootfs and prepare isolated container
+        timeout-minutes: 3
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/ci-evidence"
+          curl --fail --silent --show-error --location --retry 2 --connect-timeout 20 --max-time 120 \
+            https://dl-cdn.alpinelinux.org/alpine/v3.24/releases/x86_64/alpine-minirootfs-3.24.2-x86_64.tar.gz \
+            -o "$RUNNER_TEMP/alpine-rootfs.tar.gz"
+          printf '%s  %s\n' c5ca053cfe1d85c5b96dff8b9bc57045f7f184a30ffb6b65776409ca90388677 "$RUNNER_TEMP/alpine-rootfs.tar.gz" \
+            | sha256sum --check | tee "$RUNNER_TEMP/ci-evidence/rootfs-checksum.txt"
+          docker import --change 'ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin' \
+            "$RUNNER_TEMP/alpine-rootfs.tar.gz" mw-ci-alpine:3.24.2 | tee "$RUNNER_TEMP/ci-evidence/imported-image-id.txt"
+          # These are CI container limits; the product has no built-in hard CPU/memory/disk quota.
+          # No host mounts, Docker socket, published ports, or privileged container.
+          docker create --name "$MW_CI_CONTAINER" --cpus 2 --memory 1g --memory-swap 1g \
+            --pids-limit 256 --tmpfs /tmp:rw,nosuid,nodev,size=512m \
+            --security-opt no-new-privileges --ulimit fsize=67108864:67108864 --ulimit nofile=1024:1024 \
+            --env MW_PG_MAJOR --env MW_PG_VERSION --workdir /source \
+            mw-ci-alpine:3.24.2 /bin/sh /ci-install.sh
+          docker cp "$GITHUB_WORKSPACE/." "$MW_CI_CONTAINER:/source"
+          cat > "$RUNNER_TEMP/ci-install.sh" <<'INSTALL'
+          set -eu
+          export PYTHONUTF8=1 PYTHONDONTWRITEBYTECODE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1
+          export PIP_DISABLE_PIP_VERSION_CHECK=1 PIP_NO_INPUT=1
+          mkdir /evidence
+          date -u +%FT%TZ > /evidence/install-started-utc.txt
+          # Signed APK dependencies are recorded below. Missing exact versions fail closed.
+          apk add --no-cache python3=3.14.8-r0 py3-pip=26.1.2-r0 \
+            ca-certificates-bundle=20260909-r0 "postgresql${MW_PG_MAJOR}=${MW_PG_VERSION}"
+          cp /lib/apk/db/installed /evidence/apk-installed.txt
+          python3 -VV > /evidence/python-version.txt 2>&1
+          "/usr/libexec/postgresql${MW_PG_MAJOR}/postgres" --version > /evidence/postgres-version.txt
+          python3 -m venv /venv
+          /venv/bin/python -m pip install --only-binary=:all: --require-hashes \
+            -r requirements-py314-alpine.lock --report /evidence/dependency-install.json
+          /venv/bin/python -m pip install --no-index --no-deps --no-build-isolation . --report /evidence/package-install.json
+          /venv/bin/python -m pip freeze --all > /evidence/pip-freeze.txt
+          # Execute the root-refusal branch separately; the unprivileged full suite must skip it.
+          MW_PG_BIN="/usr/libexec/postgresql${MW_PG_MAJOR}" /venv/bin/python -m pytest -q \
+            tests/test_cluster.py::test_root_cannot_initialize --junitxml=/evidence/root-refusal.xml
+          chown -R postgres:postgres /source /evidence
+          exec su -s /bin/sh postgres -c '/bin/sh /ci-test.sh'
+          INSTALL
+          cat > "$RUNNER_TEMP/ci-test.sh" <<'TEST'
+          set -eu
+          export MW_PG_BIN="/usr/libexec/postgresql${MW_PG_MAJOR}"
+          export PYTHONUTF8=1 PYTHONDONTWRITEBYTECODE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1
+          test "$(id -u)" -ne 0
+          set +e
+          timeout -s TERM -k 15 300 /venv/bin/python -m pytest -q \
+            --junitxml=/evidence/pytest.xml --basetemp=/tmp/ci-pytest > /evidence/pytest.log 2>&1
+          ci_status=$?
+          set -e
+          cat /evidence/pytest.log
+          test "$ci_status" -eq 0
+          /venv/bin/python - <<'PY'
+          import json, pathlib, xml.etree.ElementTree as ET
+          root = pathlib.Path('/evidence')
+          cases = ET.parse(root / 'pytest.xml').findall('.//testcase')
+          skipped = [{'name': c.attrib['name'], 'reason': c.find('skipped').attrib.get('message', '')} for c in cases if c.find('skipped') is not None]
+          summary = {'tests':len(cases), 'passed':len(cases)-len(skipped), 'skipped':skipped}
+          (root / 'test-summary.json').write_text(json.dumps(summary, indent=2), encoding='utf8')
+          assert len(cases) >= 39, summary
+          assert skipped == [{'name':'test_root_cannot_initialize', 'reason':'Only root refusal branch'}], summary
+          print(json.dumps(summary, indent=2))
+          PY
+          # An additional installed-CLI smoke from outside the checkout; no repeated stress suite.
+          cd /tmp
+          /venv/bin/python -m migrationwitness list > /evidence/cli-list.json
+          /venv/bin/python -m migrationwitness run privileges_safe --pg-bin "$MW_PG_BIN" --output /evidence/cli-safe > /evidence/cli-run.json
+          /venv/bin/python -m migrationwitness verify /evidence/cli-safe > /evidence/cli-verify.json
+          TEST
+          docker cp "$RUNNER_TEMP/ci-install.sh" "$MW_CI_CONTAINER:/ci-install.sh"
+          docker cp "$RUNNER_TEMP/ci-test.sh" "$MW_CI_CONTAINER:/ci-test.sh"
+      - name: Run exact dependencies and small full suite (5-minute test deadline)
+        timeout-minutes: 8
+        run: |
+          set -euo pipefail
+          timeout --signal=TERM --kill-after=15s 450s docker start --attach "$MW_CI_CONTAINER" \
+            2>&1 | tee "$RUNNER_TEMP/ci-evidence/container.log"
+          test "$(docker inspect --format '{{.State.ExitCode}}' "$MW_CI_CONTAINER")" -eq 0
+      - name: Collect evidence and remove only the job-owned container
+        if: always()
+        timeout-minutes: 1
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/ci-evidence"
+          if docker container inspect "$MW_CI_CONTAINER" >/dev/null 2>&1; then
+            docker stop --time 10 "$MW_CI_CONTAINER" >/dev/null || true
+            docker inspect --format '{{json .State}}' "$MW_CI_CONTAINER" > "$RUNNER_TEMP/ci-evidence/container-state.json"
+            docker inspect --format '{{json .HostConfig}}' "$MW_CI_CONTAINER" > "$RUNNER_TEMP/ci-evidence/container-limits.json"
+            docker cp "$MW_CI_CONTAINER:/evidence/." "$RUNNER_TEMP/ci-evidence/" || true
+            docker rm --force "$MW_CI_CONTAINER" >/dev/null
+          fi
+      - name: Retain bounded evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2, MIT
+        with:
+          name: alpine-py314-pg${{ matrix.pg }}
+          path: ${{ runner.temp }}/ci-evidence
+          retention-days: 7
+          if-no-files-found: warn

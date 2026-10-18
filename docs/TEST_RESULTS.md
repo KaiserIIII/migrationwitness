@@ -1,4 +1,6 @@
-# Actual validation results
+# Historical baseline validation results
+
+This is the original pre-supplement acceptance, preserved as historical documentation. Current results supersede its pg-osc NOT RUN and suite counts: [CROSS_VERSION_RESULTS.md](../CROSS_VERSION_RESULTS.md) and [PG_OSC_197_RESULTS.md](../PG_OSC_197_RESULTS.md). The72-case study was not rerun on the final candidate.
 
 Exact command/output/exit status records are in the external evidence directory. See final delivery report for clean-install final results. Counts below describe executed scopes and do not turn skipped tests into PASS.
 

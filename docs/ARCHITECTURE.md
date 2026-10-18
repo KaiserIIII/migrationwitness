@@ -16,7 +16,7 @@ flowchart LR
 
 `cluster.py` owns a new mode0700 tempfile, initializes a new cluster and database `mw_test`, and binds a private Unix socket with no TCP listener. It does not accept DSNs. It retains ownership information until stopping the owned server. A startup attempt is treated as potentially successful even when subsequent evidence I/O fails. Failed stop retains the directory rather than deleting live data.
 
-`runtime.py` captures SQL results/errors and transaction states. Workload writers use disjoint keys, each statement commits before the independent intended-operation ledger acknowledges it. The final oracle reads from a different connection. This bounded row model is not a general serializability checker.
+`runtime.py` captures SQL results/errors and transaction states. It advances through all SQL result sets, retaining rows/columns/status and result_set_count; first-result rows remain compatible. Custom boolean assertions require exactly one result set with one boolean cell, otherwise INCONCLUSIVE. Workload writers use disjoint keys, each statement commits before the independent intended-operation ledger acknowledges it. The final oracle reads from a different connection. This bounded row model is not a general serializability checker.
 
 `scenarios.py` implements the predeclared controls. Catalog-visible conditions and reader events establish required interleavings. Lock snapshots are taken while the wait exists. Backfill uses an explicitly controlled stale-copy schedule; no random coverage claim. `custom.py` accepts small reviewed cases and flags an unfinished migration transaction before independent assertions. Arbitrary SQL remains trusted.
 

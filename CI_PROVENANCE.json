@@ -1,0 +1,64 @@
+{
+  "actions": [
+    {
+      "name": "actions/checkout",
+      "version": "v7.0.1",
+      "source_repository": "https://github.com/actions/checkout",
+      "commit": "3d3c42e5aac5ba805825da76410c181273ba90b1",
+      "source_url": "https://github.com/actions/checkout/tree/3d3c42e5aac5ba805825da76410c181273ba90b1",
+      "license": "MIT",
+      "license_url": "https://github.com/actions/checkout/blob/3d3c42e5aac5ba805825da76410c181273ba90b1/LICENSE",
+      "review_scope": "release/ref metadata, action.yml, README and MIT license read; not an exhaustive bundled JavaScript audit",
+      "installed_at": null,
+      "installation_status": "PREPARED_NOT_EXECUTED",
+      "review_recorded_at_utc": "2026-10-18T08:00:10.432691+00:00",
+      "reviewed_material_sha256": {
+        "action-yml": "d59219cb79590abdb877deaa14e3b65a00c05318bf5a6f3b989b9162b5d08c35",
+        "README-md": "3df94d90d0df6df603a549cc779bc6cab4b21f8deef82eb6fef1f4d88b788174",
+        "LICENSE": "3e855ffa704114a51628ef8f0bf3aeb41728adf9d9070e263bf58aa5640b0eb5"
+      }
+    },
+    {
+      "name": "actions/setup-python",
+      "version": "v7.0.0",
+      "source_repository": "https://github.com/actions/setup-python",
+      "commit": "5fda3b95a4ea91299a34e894583c3862153e4b97",
+      "source_url": "https://github.com/actions/setup-python/tree/5fda3b95a4ea91299a34e894583c3862153e4b97",
+      "license": "MIT",
+      "license_url": "https://github.com/actions/setup-python/blob/5fda3b95a4ea91299a34e894583c3862153e4b97/LICENSE",
+      "review_scope": "release/ref metadata, action.yml, README and MIT license read; not an exhaustive bundled JavaScript audit",
+      "installed_at": null,
+      "installation_status": "PREPARED_NOT_EXECUTED",
+      "review_recorded_at_utc": "2026-10-18T08:00:10.433153+00:00",
+      "reviewed_material_sha256": {
+        "action-yml": "e6dc8046c02bd3c9f7bf2fea6ba2e59b4e83c7de2b26ec2149a1627f5d66f96c",
+        "README-md": "d0a51dcaf89df5b8211d4bdbf74631c2cacf25879f95834c70bebef51e9ad1f9",
+        "LICENSE": "7d070f6b64d9bcc530fe99cc21eaaa4b3c364e0b2d367d7735671fa202a03b32"
+      }
+    },
+    {
+      "name": "actions/upload-artifact",
+      "version": "v7.0.2",
+      "source_repository": "https://github.com/actions/upload-artifact",
+      "commit": "cf430e030ddbb5b0abf93d22962f4752f3646cd9",
+      "source_url": "https://github.com/actions/upload-artifact/tree/cf430e030ddbb5b0abf93d22962f4752f3646cd9",
+      "license": "MIT",
+      "license_url": "https://github.com/actions/upload-artifact/blob/cf430e030ddbb5b0abf93d22962f4752f3646cd9/LICENSE",
+      "review_scope": "release/ref metadata, action.yml, README and MIT license read; not an exhaustive bundled JavaScript audit",
+      "installed_at": null,
+      "installation_status": "PREPARED_NOT_EXECUTED",
+      "review_recorded_at_utc": "2026-10-18T08:00:10.433797+00:00",
+      "reviewed_material_sha256": {
+        "action-yml": "c5979822866a72362e609844b6ebe77d4b7e759af68cc1c2c425dcf51481fab4",
+        "README-md": "82e3d7226dabea938b107b93e015aa816150d6894fff631064aa2884c26771f7",
+        "LICENSE": "3e855ffa704114a51628ef8f0bf3aeb41728adf9d9070e263bf58aa5640b0eb5"
+      }
+    }
+  ],
+  "hosted_execution": "NOT RUN",
+  "rootfs": {
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.24/releases/x86_64/alpine-minirootfs-3.24.2-x86_64.tar.gz",
+    "sha256": "c5ca053cfe1d85c5b96dff8b9bc57045f7f184a30ffb6b65776409ca90388677"
+  },
+  "dependency_boundary": "Exact direct APK versions, signed transitive APK resolution recorded during CI. Accepted platform Python wheels are hash-locked. No vendored action JS; source-to-runtime attestation NOT RUN."
+}

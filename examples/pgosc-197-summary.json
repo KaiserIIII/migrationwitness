@@ -1,0 +1,822 @@
+{
+  "format": 1,
+  "source": "Derived from actual private-lab result.json files. Synthetic data; no hostnames, command stdout or original absolute paths copied.",
+  "runs": [
+    {
+      "run": "pg16-native-r0",
+      "mode": "native",
+      "status": "NATIVE_CONTROL_PASS",
+      "outcome": "PASS",
+      "postgres": "PostgreSQL 16.15 on x86_64-alpine-linux-musl, compiled by cc (Alpine 15.2.0) 15.2.0, 64-bit",
+      "tool_exit": 0,
+      "before_type": "integer",
+      "after_type": "bigint",
+      "before_privilege_bits": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "after_privilege_bits": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "before_actual": [
+        null,
+        null,
+        null,
+        "42501"
+      ],
+      "after_actual": [
+        null,
+        null,
+        null,
+        "42501"
+      ],
+      "old_oid": 16387,
+      "new_oid": 16387,
+      "permission_loss": false,
+      "mitigation": null,
+      "checks": [
+        {
+          "name": "fixture privileges really granted before migration",
+          "ok": true
+        },
+        {
+          "name": "actual migration completed target type",
+          "ok": true
+        },
+        {
+          "name": "native OID preserved",
+          "ok": true
+        },
+        {
+          "name": "owner preserved",
+          "ok": true
+        },
+        {
+          "name": "original business data preserved",
+          "ok": true
+        },
+        {
+          "name": "business SELECT INSERT UPDATE preserved",
+          "ok": true
+        },
+        {
+          "name": "forbidden DELETE remains forbidden",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "run": "pg16-native-r1",
+      "mode": "native",
+      "status": "NATIVE_CONTROL_PASS",
+      "outcome": "PASS",
+      "postgres": "PostgreSQL 16.15 on x86_64-alpine-linux-musl, compiled by cc (Alpine 15.2.0) 15.2.0, 64-bit",
+      "tool_exit": 0,
+      "before_type": "integer",
+      "after_type": "bigint",
+      "before_privilege_bits": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "after_privilege_bits": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "before_actual": [
+        null,
+        null,
+        null,
+        "42501"
+      ],
+      "after_actual": [
+        null,
+        null,
+        null,
+        "42501"
+      ],
+      "old_oid": 16387,
+      "new_oid": 16387,
+      "permission_loss": false,
+      "mitigation": null,
+      "checks": [
+        {
+          "name": "fixture privileges really granted before migration",
+          "ok": true
+        },
+        {
+          "name": "actual migration completed target type",
+          "ok": true
+        },
+        {
+          "name": "native OID preserved",
+          "ok": true
+        },
+        {
+          "name": "owner preserved",
+          "ok": true
+        },
+        {
+          "name": "original business data preserved",
+          "ok": true
+        },
+        {
+          "name": "business SELECT INSERT UPDATE preserved",
+          "ok": true
+        },
+        {
+          "name": "forbidden DELETE remains forbidden",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "run": "pg16-native-r2",
+      "mode": "native",
+      "status": "NATIVE_CONTROL_PASS",
+      "outcome": "PASS",
+      "postgres": "PostgreSQL 16.15 on x86_64-alpine-linux-musl, compiled by cc (Alpine 15.2.0) 15.2.0, 64-bit",
+      "tool_exit": 0,
+      "before_type": "integer",
+      "after_type": "bigint",
+      "before_privilege_bits": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "after_privilege_bits": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "before_actual": [
+        null,
+        null,
+        null,
+        "42501"
+      ],
+      "after_actual": [
+        null,
+        null,
+        null,
+        "42501"
+      ],
+      "old_oid": 16387,
+      "new_oid": 16387,
+      "permission_loss": false,
+      "mitigation": null,
+      "checks": [
+        {
+          "name": "fixture privileges really granted before migration",
+          "ok": true
+        },
+        {
+          "name": "actual migration completed target type",
+          "ok": true
+        },
+        {
+          "name": "native OID preserved",
+          "ok": true
+        },
+        {
+          "name": "owner preserved",
+          "ok": true
+        },
+        {
+          "name": "original business data preserved",
+          "ok": true
+        },
+        {
+          "name": "business SELECT INSERT UPDATE preserved",
+          "ok": true
+        },
+        {
+          "name": "forbidden DELETE remains forbidden",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "run": "pg16-pgosc-r0",
+      "mode": "pgosc",
+      "status": "REPRODUCED",
+      "outcome": "FAIL",
+      "postgres": "PostgreSQL 16.15 on x86_64-alpine-linux-musl, compiled by cc (Alpine 15.2.0) 15.2.0, 64-bit",
+      "tool_exit": 0,
+      "before_type": "integer",
+      "after_type": "bigint",
+      "before_privilege_bits": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "after_privilege_bits": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "before_actual": [
+        null,
+        null,
+        null,
+        "42501"
+      ],
+      "after_actual": [
+        "42501",
+        "42501",
+        "42501",
+        "42501"
+      ],
+      "old_oid": 16387,
+      "new_oid": 16405,
+      "permission_loss": true,
+      "mitigation": true,
+      "checks": [
+        {
+          "name": "fixture privileges really granted before migration",
+          "ok": true
+        },
+        {
+          "name": "actual migration completed target type",
+          "ok": true
+        },
+        {
+          "name": "shadow swap observed",
+          "ok": true
+        },
+        {
+          "name": "owner preserved",
+          "ok": true
+        },
+        {
+          "name": "original business data preserved",
+          "ok": true
+        },
+        {
+          "name": "business SELECT INSERT UPDATE preserved",
+          "ok": false
+        },
+        {
+          "name": "forbidden DELETE remains forbidden",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "run": "pg16-pgosc-r1",
+      "mode": "pgosc",
+      "status": "REPRODUCED",
+      "outcome": "FAIL",
+      "postgres": "PostgreSQL 16.15 on x86_64-alpine-linux-musl, compiled by cc (Alpine 15.2.0) 15.2.0, 64-bit",
+      "tool_exit": 0,
+      "before_type": "integer",
+      "after_type": "bigint",
+      "before_privilege_bits": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "after_privilege_bits": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "before_actual": [
+        null,
+        null,
+        null,
+        "42501"
+      ],
+      "after_actual": [
+        "42501",
+        "42501",
+        "42501",
+        "42501"
+      ],
+      "old_oid": 16387,
+      "new_oid": 16405,
+      "permission_loss": true,
+      "mitigation": true,
+      "checks": [
+        {
+          "name": "fixture privileges really granted before migration",
+          "ok": true
+        },
+        {
+          "name": "actual migration completed target type",
+          "ok": true
+        },
+        {
+          "name": "shadow swap observed",
+          "ok": true
+        },
+        {
+          "name": "owner preserved",
+          "ok": true
+        },
+        {
+          "name": "original business data preserved",
+          "ok": true
+        },
+        {
+          "name": "business SELECT INSERT UPDATE preserved",
+          "ok": false
+        },
+        {
+          "name": "forbidden DELETE remains forbidden",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "run": "pg16-pgosc-r2",
+      "mode": "pgosc",
+      "status": "REPRODUCED",
+      "outcome": "FAIL",
+      "postgres": "PostgreSQL 16.15 on x86_64-alpine-linux-musl, compiled by cc (Alpine 15.2.0) 15.2.0, 64-bit",
+      "tool_exit": 0,
+      "before_type": "integer",
+      "after_type": "bigint",
+      "before_privilege_bits": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "after_privilege_bits": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "before_actual": [
+        null,
+        null,
+        null,
+        "42501"
+      ],
+      "after_actual": [
+        "42501",
+        "42501",
+        "42501",
+        "42501"
+      ],
+      "old_oid": 16387,
+      "new_oid": 16405,
+      "permission_loss": true,
+      "mitigation": true,
+      "checks": [
+        {
+          "name": "fixture privileges really granted before migration",
+          "ok": true
+        },
+        {
+          "name": "actual migration completed target type",
+          "ok": true
+        },
+        {
+          "name": "shadow swap observed",
+          "ok": true
+        },
+        {
+          "name": "owner preserved",
+          "ok": true
+        },
+        {
+          "name": "original business data preserved",
+          "ok": true
+        },
+        {
+          "name": "business SELECT INSERT UPDATE preserved",
+          "ok": false
+        },
+        {
+          "name": "forbidden DELETE remains forbidden",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "run": "pg17-native-r0",
+      "mode": "native",
+      "status": "NATIVE_CONTROL_PASS",
+      "outcome": "PASS",
+      "postgres": "PostgreSQL 17.11 on x86_64-alpine-linux-musl, compiled by cc (Alpine 15.2.0) 15.2.0, 64-bit",
+      "tool_exit": 0,
+      "before_type": "integer",
+      "after_type": "bigint",
+      "before_privilege_bits": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "after_privilege_bits": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "before_actual": [
+        null,
+        null,
+        null,
+        "42501"
+      ],
+      "after_actual": [
+        null,
+        null,
+        null,
+        "42501"
+      ],
+      "old_oid": 16387,
+      "new_oid": 16387,
+      "permission_loss": false,
+      "mitigation": null,
+      "checks": [
+        {
+          "name": "fixture privileges really granted before migration",
+          "ok": true
+        },
+        {
+          "name": "actual migration completed target type",
+          "ok": true
+        },
+        {
+          "name": "native OID preserved",
+          "ok": true
+        },
+        {
+          "name": "owner preserved",
+          "ok": true
+        },
+        {
+          "name": "original business data preserved",
+          "ok": true
+        },
+        {
+          "name": "business SELECT INSERT UPDATE preserved",
+          "ok": true
+        },
+        {
+          "name": "forbidden DELETE remains forbidden",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "run": "pg17-native-r1",
+      "mode": "native",
+      "status": "NATIVE_CONTROL_PASS",
+      "outcome": "PASS",
+      "postgres": "PostgreSQL 17.11 on x86_64-alpine-linux-musl, compiled by cc (Alpine 15.2.0) 15.2.0, 64-bit",
+      "tool_exit": 0,
+      "before_type": "integer",
+      "after_type": "bigint",
+      "before_privilege_bits": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "after_privilege_bits": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "before_actual": [
+        null,
+        null,
+        null,
+        "42501"
+      ],
+      "after_actual": [
+        null,
+        null,
+        null,
+        "42501"
+      ],
+      "old_oid": 16387,
+      "new_oid": 16387,
+      "permission_loss": false,
+      "mitigation": null,
+      "checks": [
+        {
+          "name": "fixture privileges really granted before migration",
+          "ok": true
+        },
+        {
+          "name": "actual migration completed target type",
+          "ok": true
+        },
+        {
+          "name": "native OID preserved",
+          "ok": true
+        },
+        {
+          "name": "owner preserved",
+          "ok": true
+        },
+        {
+          "name": "original business data preserved",
+          "ok": true
+        },
+        {
+          "name": "business SELECT INSERT UPDATE preserved",
+          "ok": true
+        },
+        {
+          "name": "forbidden DELETE remains forbidden",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "run": "pg17-native-r2",
+      "mode": "native",
+      "status": "NATIVE_CONTROL_PASS",
+      "outcome": "PASS",
+      "postgres": "PostgreSQL 17.11 on x86_64-alpine-linux-musl, compiled by cc (Alpine 15.2.0) 15.2.0, 64-bit",
+      "tool_exit": 0,
+      "before_type": "integer",
+      "after_type": "bigint",
+      "before_privilege_bits": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "after_privilege_bits": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "before_actual": [
+        null,
+        null,
+        null,
+        "42501"
+      ],
+      "after_actual": [
+        null,
+        null,
+        null,
+        "42501"
+      ],
+      "old_oid": 16387,
+      "new_oid": 16387,
+      "permission_loss": false,
+      "mitigation": null,
+      "checks": [
+        {
+          "name": "fixture privileges really granted before migration",
+          "ok": true
+        },
+        {
+          "name": "actual migration completed target type",
+          "ok": true
+        },
+        {
+          "name": "native OID preserved",
+          "ok": true
+        },
+        {
+          "name": "owner preserved",
+          "ok": true
+        },
+        {
+          "name": "original business data preserved",
+          "ok": true
+        },
+        {
+          "name": "business SELECT INSERT UPDATE preserved",
+          "ok": true
+        },
+        {
+          "name": "forbidden DELETE remains forbidden",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "run": "pg17-pgosc-r0",
+      "mode": "pgosc",
+      "status": "REPRODUCED",
+      "outcome": "FAIL",
+      "postgres": "PostgreSQL 17.11 on x86_64-alpine-linux-musl, compiled by cc (Alpine 15.2.0) 15.2.0, 64-bit",
+      "tool_exit": 0,
+      "before_type": "integer",
+      "after_type": "bigint",
+      "before_privilege_bits": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "after_privilege_bits": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "before_actual": [
+        null,
+        null,
+        null,
+        "42501"
+      ],
+      "after_actual": [
+        "42501",
+        "42501",
+        "42501",
+        "42501"
+      ],
+      "old_oid": 16387,
+      "new_oid": 16405,
+      "permission_loss": true,
+      "mitigation": true,
+      "checks": [
+        {
+          "name": "fixture privileges really granted before migration",
+          "ok": true
+        },
+        {
+          "name": "actual migration completed target type",
+          "ok": true
+        },
+        {
+          "name": "shadow swap observed",
+          "ok": true
+        },
+        {
+          "name": "owner preserved",
+          "ok": true
+        },
+        {
+          "name": "original business data preserved",
+          "ok": true
+        },
+        {
+          "name": "business SELECT INSERT UPDATE preserved",
+          "ok": false
+        },
+        {
+          "name": "forbidden DELETE remains forbidden",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "run": "pg17-pgosc-r1",
+      "mode": "pgosc",
+      "status": "REPRODUCED",
+      "outcome": "FAIL",
+      "postgres": "PostgreSQL 17.11 on x86_64-alpine-linux-musl, compiled by cc (Alpine 15.2.0) 15.2.0, 64-bit",
+      "tool_exit": 0,
+      "before_type": "integer",
+      "after_type": "bigint",
+      "before_privilege_bits": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "after_privilege_bits": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "before_actual": [
+        null,
+        null,
+        null,
+        "42501"
+      ],
+      "after_actual": [
+        "42501",
+        "42501",
+        "42501",
+        "42501"
+      ],
+      "old_oid": 16387,
+      "new_oid": 16405,
+      "permission_loss": true,
+      "mitigation": true,
+      "checks": [
+        {
+          "name": "fixture privileges really granted before migration",
+          "ok": true
+        },
+        {
+          "name": "actual migration completed target type",
+          "ok": true
+        },
+        {
+          "name": "shadow swap observed",
+          "ok": true
+        },
+        {
+          "name": "owner preserved",
+          "ok": true
+        },
+        {
+          "name": "original business data preserved",
+          "ok": true
+        },
+        {
+          "name": "business SELECT INSERT UPDATE preserved",
+          "ok": false
+        },
+        {
+          "name": "forbidden DELETE remains forbidden",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "run": "pg17-pgosc-r2",
+      "mode": "pgosc",
+      "status": "REPRODUCED",
+      "outcome": "FAIL",
+      "postgres": "PostgreSQL 17.11 on x86_64-alpine-linux-musl, compiled by cc (Alpine 15.2.0) 15.2.0, 64-bit",
+      "tool_exit": 0,
+      "before_type": "integer",
+      "after_type": "bigint",
+      "before_privilege_bits": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "after_privilege_bits": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "before_actual": [
+        null,
+        null,
+        null,
+        "42501"
+      ],
+      "after_actual": [
+        "42501",
+        "42501",
+        "42501",
+        "42501"
+      ],
+      "old_oid": 16387,
+      "new_oid": 16405,
+      "permission_loss": true,
+      "mitigation": true,
+      "checks": [
+        {
+          "name": "fixture privileges really granted before migration",
+          "ok": true
+        },
+        {
+          "name": "actual migration completed target type",
+          "ok": true
+        },
+        {
+          "name": "shadow swap observed",
+          "ok": true
+        },
+        {
+          "name": "owner preserved",
+          "ok": true
+        },
+        {
+          "name": "original business data preserved",
+          "ok": true
+        },
+        {
+          "name": "business SELECT INSERT UPDATE preserved",
+          "ok": false
+        },
+        {
+          "name": "forbidden DELETE remains forbidden",
+          "ok": true
+        }
+      ]
+    }
+  ]
+}
