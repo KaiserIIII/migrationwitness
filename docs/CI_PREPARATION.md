@@ -1,4 +1,6 @@
-# Local CI preparation, 2026-10-18
+# Historical local CI preparation, 2026-10-18
+
+> Prepublication snapshot: the NOT RUN statements below describe the original local preparation. Subsequent [actual hosted acceptance](https://github.com/KaiserIIII/migrationwitness/actions/runs/39122362491) passed all3 jobs on472b98d: LinuxPG16/17 each40 passed/1 root-only skip, Windows21/20, plus actual supported CLI and Linux root-refusal checks. Hosted Docker passed; local Docker daemon remains unavailable. See [current cross-version results](../CROSS_VERSION_RESULTS.md).
 
 Workflow `.github/workflows/ci.yml` is prepared. No public repository, remote, push, Release or hosted workflow run was created; local source commits are recorded separately in the delivery. All evidence paths below are relative to the private `ci-preparation/` acceptance dossier, not public files.
 

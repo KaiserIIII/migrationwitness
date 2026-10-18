@@ -1,6 +1,6 @@
 # MigrationWitness
 
-[English](README.md) · [真实 pg-osc 实验](PG_OSC_197_RESULTS.md) · [跨版本验收](CROSS_VERSION_RESULTS.md)
+[English](README.md) · [真实 pg-osc 实验](PG_OSC_197_RESULTS.md) · [跨版本验收](CROSS_VERSION_RESULTS.md) · [架构图](docs/ARCHITECTURE.md)
 
 MigrationWitness 在一次性 PostgreSQL 数据库中执行受信任的迁移，检查业务数据、旧客户端、权限、锁等待和中断恢复是否满足明确约束。它是本地源码实验版，不是迁移引擎或生产数据库管理工具。
 
@@ -11,15 +11,31 @@ MigrationWitness 在一次性 PostgreSQL 数据库中执行受信任的迁移，
 - PostgreSQL16.15、17.11：从干净检出目录和全新虚拟环境安装后，各40项通过、1项仅适用于root的测试跳过；root拒绝检查另行通过。
 - Windows/Python3.13.0：21项通过、20项跳过，涵盖离线CLI、Unicode、报告及篡改拒绝。**未运行原生Windows PostgreSQL**，数据库实验请用Linux或WSL。
 - 真正的pg-osc0.9.10列类型迁移在两个PG版本各运行3次：影子表切换完成、命令退出0，但业务用户原有SELECT/INSERT/UPDATE均丢失并返回42501。数据与OWNER保持；原生ALTER的6次对照保留权限。随后显式恢复GRANT可恢复这3种操作。
-- GitHub Actions已准备Windows和受限Linux16/17验证，但**GitHub托管CI和Docker运行尚未执行**。本地命令通过不代表托管CI已通过。
+- [GitHub托管验收](https://github.com/KaiserIIII/migrationwitness/actions/runs/39122362491)已实际通过：Linux容器中的PG16/17各40项通过、1项root分支跳过，root拒绝测试另行通过；Windows离线21项通过、20项明确跳过。两类平台均执行了实际支持的CLI检查。托管CI未重复运行旧Ruby的pg-osc实验，也不证明生产迁移正确。独立本地Docker守护进程路径仍为NOT RUN，托管Docker执行已通过。
 
-这是已知上游问题的受控复现，不是首次发现、新算法或论文创新。默认校验确实能拦住pg-schema-diff#316；报告保留这一保护结果，不夸大本工具差异。
+这是固定pg-osc0.9.10、PG16.15/17.11和显式GRANT配置下的已知问题复现，迁移时没有并发业务写入；不能推广到所有PG/pg-osc版本、任意ACL或生产负载。**科研结论维持NO-GO**，不声称首次发现、新迁移算法或论文创新。默认校验确实能拦住pg-schema-diff#316；报告保留这一保护结果，不夸大本工具差异。
+
+## 工作流程
+
+```mermaid
+flowchart LR
+  A[受信任场景] --> B[一次性PostgreSQL]
+  B --> C[迁移与受控客户端]
+  B --> D[锁 / SQLSTATE / 对象目录]
+  C --> E[独立不变量验证]
+  D --> E
+  E --> F[JSON / HTML / Markdown与哈希]
+```
+
+CI容器限制为2CPU、1GiB内存、256PID和512MiB临时文件系统，另有测试及任务时限；它们不等于产品提供硬资源隔离。Windows跳过的20项为19项数据库相关测试和1项POSIX进程组测试。
 
 ## 安装与运行
 
 在装有官方PostgreSQL二进制的Linux普通用户下执行，不能以root初始化数据库：
 
 ```sh
+git clone https://github.com/KaiserIIII/migrationwitness.git
+cd migrationwitness
 python3 -m venv .venv
 . .venv/bin/activate
 python -m pip install .
@@ -33,6 +49,8 @@ Alpine路径通常为`/usr/libexec/postgresql17`；每次输出目录必须是�
 Windows离线操作：
 
 ```powershell
+git clone https://github.com/KaiserIIII/migrationwitness.git
+cd migrationwitness
 py -3.13 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install .
 .\.venv\Scripts\python.exe -m migrationwitness list
@@ -49,4 +67,4 @@ py -3.13 -m venv .venv
 
 生产环境误报/漏报率、所有调度、复杂权限/元数据、复制故障转移、其他版本均未证明。哈希只能相对于可信清单发现文件变化，不是数字签名。原始报告可能含调用者SQL、值、主机名和路径，分享前需审查。本次公开清单只含源码、文档和明确派生的真实合成数据实验摘要，不含私有原始日志、虚拟环境或第三方二进制。
 
-项目MIT许可，第三方依赖保留各自许可证。候选仅准备公开，尚未创建远程仓库、Push、Release或发布软件包。完成本轮后冻结开发。
+项目MIT许可，第三方依赖保留各自许可证。已作为[源码实验版](https://github.com/KaiserIIII/migrationwitness)公开；未创建正式Release、发布PyPI包或部署公网服务。发布后冻结功能开发。

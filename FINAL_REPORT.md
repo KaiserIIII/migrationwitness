@@ -1,5 +1,7 @@
 # MigrationWitness final supplemental delivery
 
+> Historical local acceptance report for candidate472b98d. The original results below remain unchanged. Source publication is now authorized and completed at [https://github.com/KaiserIIII/migrationwitness](https://github.com/KaiserIIII/migrationwitness); [hosted CI](https://github.com/KaiserIIII/migrationwitness/actions/runs/39122362491) passed all3 jobs. Current publication identity is separate in E:/final/migrationwitness-publication-20261018/DELIVERY.json. Research NO-GO remains unchanged.
+
 **PUBLICATION_READY — source experimental edition only.** This is a local PostgreSQL migration reliability harness, not a migration engine, production safety certificate or scientific innovation. Target `KaiserIIII/migrationwitness` is prepared but not created. No remote, push, Release, package publication or deployment.
 
 ## Actual results

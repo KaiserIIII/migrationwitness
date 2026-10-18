@@ -30,8 +30,8 @@
     },
     {
       "path": "CROSS_VERSION_RESULTS.md",
-      "bytes": 4141,
-      "sha256": "24f9be85f3748b50a71f0939a100fd3ef59809324b7b15e96ee03d733c6e2192"
+      "bytes": 4998,
+      "sha256": "fe782ea90d226aa53f7272dcca98e4252aca9f43d5f65c035ff95d68c19b3e89"
     },
     {
       "path": "DEPENDENCY_PROVENANCE.json",
@@ -40,13 +40,13 @@
     },
     {
       "path": "FINAL_REPORT.md",
-      "bytes": 5798,
-      "sha256": "1ca1ade0c096ef55e741a351b9d5cfea662bfc5514d5c31f92f402a2ee1638c4"
+      "bytes": 6298,
+      "sha256": "55889b0d9201686be7637dbb314cc790cc845c4d5707bc70f9085795ab3e9f2a"
     },
     {
       "path": "HANDOFF.md",
-      "bytes": 4482,
-      "sha256": "a9b70035a141dd4a4f46a04e136c666261a190ca6b9156ff17f3dd93bd8d842c"
+      "bytes": 4963,
+      "sha256": "54e96623dfec7cd53feb60c1a72e218981582586d71ebd16c9826580f918fdc4"
     },
     {
       "path": "LICENSE",
@@ -65,8 +65,8 @@
     },
     {
       "path": "PUBLICATION_READINESS.md",
-      "bytes": 4657,
-      "sha256": "c2b935ad92c255dc87976e0183b7e63f8c21a4e188da7296371c1ea99fef5a0b"
+      "bytes": 5146,
+      "sha256": "2ed62b96762e19ef48351b322da984292ca679b74e811289aea190e64c514393"
     },
     {
       "path": "PUBLIC_FILES.json",
@@ -75,23 +75,23 @@
     },
     {
       "path": "PUBLISHING.md",
-      "bytes": 2486,
-      "sha256": "94b56d1f91d7ae0ae8188a7c5db9189037b5087901339c47cc89306e503125a1"
+      "bytes": 2037,
+      "sha256": "edcd07cbd7ef40145ff660eac9c5f6023020098de52a09ec314ce2ce62745301"
     },
     {
       "path": "README.md",
-      "bytes": 9243,
-      "sha256": "357a7fe239a08311cc1a8985faf5661272932bec528f6fe34ad726782e97b054"
+      "bytes": 11639,
+      "sha256": "945ba980f4873eae9beb52b50ae1d86dedef31967cebef45743108f9d3aee2db"
     },
     {
       "path": "README_ZH.md",
-      "bytes": 4143,
-      "sha256": "4977750d545bb8d0c7a67427da8bfc30511c80ef18c2c29169c3b4c11d32aa43"
+      "bytes": 5385,
+      "sha256": "6a3f0c4f3b58ffd6f5c462b9546c3e259aefde20ea92df16112c12b626ca2f8e"
     },
     {
       "path": "RESUME.md",
-      "bytes": 2922,
-      "sha256": "d51f231444614f7f47fdf5b3df1b8e209748882b61c18c5d3d273b8d769dee2f"
+      "bytes": 2372,
+      "sha256": "90c914e66286dbe8626da1523e862486c2852fbd89b50d8fd7ac73197a43922b"
     },
     {
       "path": "docs/ACCEPTANCE_COMMANDS.md",
@@ -105,8 +105,8 @@
     },
     {
       "path": "docs/CI_PREPARATION.md",
-      "bytes": 5442,
-      "sha256": "9610bb7015539a4330373297e1cba1ad8deb7e18300a3c946a4bc9765621b60a"
+      "bytes": 5935,
+      "sha256": "eca537473ac7ea7a2b8f9b025ec2dc1dea0fb9f8ed68e99c66724eb285063fd9"
     },
     {
       "path": "docs/COMPETITORS.md",
@@ -130,8 +130,8 @@
     },
     {
       "path": "docs/SECURITY.md",
-      "bytes": 3847,
-      "sha256": "216ea347ec28a1d58665ed237aae4a1b786d8e23cbe0b2bce13ecfa8b99deefd"
+      "bytes": 4006,
+      "sha256": "918c8773433b4b4122953d51775f27ca2aeba61ab7840c7395699a5242878bbd"
     },
     {
       "path": "docs/TEST_RESULTS.md",

@@ -11,7 +11,7 @@ Baseline `c9edadf53dcfa83c760ee2055adb1c659db34125` preserved in a verified Git 
 | Fresh Windows hash-locked install and prepared workflow steps |3.13.0 /no native PG |21 passed,20 skipped; installed offline CLI passed |
 | Real pg-osc#197 and native ALTER |Ruby3.3.0 /16.15,17.11 |6 reproduced permission-contract FAIL,6 native-control PASS |
 
-Windows skips are19 database-dependent tests and1 POSIX-only process-group test. Native Windows PostgreSQL is NOT RUN/unsupported; WSL results are Linux results. The workflow's GitHub-hosted Windows/Linux/Docker execution is **NOT RUN**, not local PASS. Dependencies/action SHAs and local preparation checks are described in [CI_PREPARATION.md](docs/CI_PREPARATION.md).
+Windows skips are19 database-dependent tests and1 POSIX-only process-group test. Native Windows PostgreSQL is NOT RUN/unsupported; WSL results are Linux results. The initial prepublication workflow was NOT RUN at local freeze. Subsequent actual [hosted run](https://github.com/KaiserIIII/migrationwitness/actions/runs/39122362491) on accepted candidate472b98d passed Windows/offline and Linux/PG16/PG17. Its downloaded JUnit and JSON artifacts independently confirm40/1 on each PG major and21/20 on Windows, plus separate Linux root refusal and installed CLI checks. Hosted Docker execution is now PASS; the separate local Docker-daemon path remains NOT RUN. Dependencies/action SHAs and local preparation checks are described in [CI_PREPARATION.md](docs/CI_PREPARATION.md).
 
 ## Covered contracts
 
@@ -30,3 +30,7 @@ Original baseline failure XML/logs, new red/green tests, core hashes and indepen
 In-process installed-package statement coverage is85% overall in this run, including CLI modules measured as0 because pytest CLI tests launch subprocesses without coverage instrumentation. That limitation does not mean CLI was not run; CLI behavior has actual subprocess assertions and separate installed-CLI checks. No coverage number establishes system correctness.
 
 Resource limits are finite built-in workloads/timeouts; the product has no hard CPU/memory/disk quota or universal whole-script deadline. Production false-positive/false-negative rates, replication/failover, arbitrary schedules and versions beyond the tested matrix remain UNKNOWN/NOT RUN.
+
+## Published source acceptance
+
+The hosted suite tests unchanged accepted runtime/probes, using the resource limits in .github/workflows/ci.yml. It does not rerun pg-osc or replace the fixed-version12-run ACL evidence. The research decision remains NO-GO; production accuracy and arbitrary schedules remain unvalidated. Private publication command/log/artifact verification is retained separately under E:/final/migrationwitness-publication-20261018.

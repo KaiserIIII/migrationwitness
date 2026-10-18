@@ -1,6 +1,6 @@
 # Source-experiment publication readiness
 
-**PUBLICATION_READY — source experimental edition only.** Prepared target: `KaiserIIII/migrationwitness`. The repository has not been created, no remote configured, no code pushed, and no Release/PyPI/deployment performed. Publishing remains a separate human authorization step.
+**PUBLICATION_READY — source experimental edition only.** Published with explicit owner authorization at [https://github.com/KaiserIIII/migrationwitness](https://github.com/KaiserIIII/migrationwitness). The original accepted472b98d candidate was pushed unchanged and verified against its62-file inventory/tree and GitHub KaiserIIII author/committer association. No Release, PyPI package or deployment. Scientific contribution decision remains NO-GO.
 
 ## Evidence supporting the decision
 
@@ -14,7 +14,7 @@
 
 [Workflow](.github/workflows/ci.yml) prepared: Windows Python3.13 offline/tests/CLI; bounded Alpine Python3.14 PostgreSQL16/17 full small suite. Action SHAs, official rootfs checksum and accepted platform wheel hashes are pinned; direct APK versions are exact and signed transitive package records retained. Linux CI containers specify2CPU/1GiB RAM/256PIDs/512MiB tmpfs, a5-minute suite deadline and15-minute job budget. These are CI container limits, not product-enforced quotas.
 
-Fresh local Windows workflow commands and static YAML/PowerShell/shell/Python checks passed. **GitHub-hosted Actions and Docker container lifecycle are NOT RUN** because publication is not authorized and the local daemon is unavailable. No green badge or hosted-CI success is claimed. Hosted labels/setup-Python artifacts and signed transitive APK resolution remain operational dependencies; missing pinned versions must fail closed. See [CI preparation](docs/CI_PREPARATION.md).
+Fresh local Windows workflow commands and static checks passed before publication. Subsequently [hosted run39122362491](https://github.com/KaiserIIII/migrationwitness/actions/runs/39122362491) actually passed all three jobs: Linux PG16/17 each40 passed/1 root-only skip, Windows21 passed/20 explicit skips, separate Linux root refusal and installed CLI checks. Downloaded JUnit/artifact contents were verified. Hosted Docker lifecycle passed; the separate local daemon path remains NOT RUN. Hosted labels/setup-Python artifacts and signed transitive APK resolution remain operational dependencies; missing pinned versions must fail closed. See [CI preparation](docs/CI_PREPARATION.md).
 
 ## Public boundary and known limits
 
@@ -26,4 +26,4 @@ Native Windows PostgreSQL remains unsupported/NOT RUN; use Linux/WSL. Arbitrary 
 
 ## Frozen release procedure
 
-[PUBLISHING.md](PUBLISHING.md) records the pending repository/push/CI procedure. Do not execute it without fresh publication authorization. No feature expansion or new project follows this acceptance. Final candidate/ZIP/bundle identity is external `E:/final/migrationwitness-final-evidence-20261018/DELIVERY.json`; retain the previous baseline artifacts separately.
+[PUBLISHING.md](PUBLISHING.md) records the authorized publication and future maintenance boundary. No feature expansion or new project follows this acceptance. Original accepted candidate/ZIP/bundle identity remains in `E:/final/migrationwitness-final-evidence-20261018/DELIVERY.json`; the final public SHA/tree/CI and manifest records are separate in `E:/final/migrationwitness-publication-20261018/DELIVERY.json`. Retain previous baseline artifacts and raw evidence unchanged.
