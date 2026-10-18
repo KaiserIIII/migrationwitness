@@ -111,6 +111,9 @@ def render(root: Path):
                 '<h1>MigrationWitness</h1><p>Bounded disposable experiment; no production guarantee.</p><pre>'
                 +html.escape(body)+'</pre></html>')
     with (root/'report.md').open('x', encoding='utf8') as f:
-        f.write('# MigrationWitness evidence\n\nOutcome: '+str(value.get('outcome', 'UNKNOWN'))+'\n\n')
+        status=value.get('outcome','UNKNOWN')
+        if status not in ('PASS','FAIL','INCONCLUSIVE','ERROR','UNKNOWN'):
+            status='UNKNOWN'
+        f.write('# MigrationWitness evidence\n\nOutcome: '+status+'\n\n')
         # HTML escaped inside a pre element; no Markdown links/raw tags from SQL.
         f.write('<pre>'+html.escape(body)+'</pre>\n')

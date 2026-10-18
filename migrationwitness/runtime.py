@@ -21,8 +21,16 @@ class Context:
         start=time.monotonic()
         try:
             cur=c.execute(query,params)
-            rows=cur.fetchall() if cur.description else []
-            outcome=dict(ok=True,rows=rows,sqlstate=None)
+            result_sets=[]
+            while True:
+                result_sets.append(dict(rows=cur.fetchall() if cur.description else [],
+                                        columns=[col.name for col in cur.description] if cur.description else [],
+                                        status=cur.statusmessage))
+                if not cur.nextset():
+                    break
+            # Preserve the established first-result rows field, while retaining all results.
+            outcome=dict(ok=True,rows=result_sets[0]['rows'],sqlstate=None,
+                         result_set_count=len(result_sets),result_sets=result_sets)
         except psycopg.Error as e:
             outcome=dict(ok=False,rows=[],sqlstate=e.sqlstate,error=str(e))
         outcome['event']=self.evidence.event('sql',pid=c.info.backend_pid,query=query,params=params,

@@ -62,7 +62,7 @@ def execute_case(case,ctx,allow_command):
         o=ctx.sql(validator,a['sql'],required=False)
         if not o['ok']:
             ok=False
-        elif len(o['rows'])==1 and len(o['rows'][0])==1 and isinstance(o['rows'][0][0],bool):
+        elif o['result_set_count']==1 and len(o['rows'])==1 and len(o['rows'][0])==1 and isinstance(o['rows'][0][0],bool):
             ok=o['rows'][0][0]
         else:ok=None
         ctx.check(a['name'],ok,event=o['event'])

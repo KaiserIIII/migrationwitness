@@ -65,3 +65,13 @@ def test_nonobject_manifest_fails_closed(tmp_path):
     from migrationwitness.evidence import verify
     (tmp_path/'manifest.json').write_text('[]')
     assert verify(tmp_path)
+
+
+def test_markdown_heading_does_not_interpret_unsealed_outcome(tmp_path):
+    from migrationwitness.evidence import Evidence,render
+    e=Evidence(tmp_path/'run')
+    e.write_json('result.json',{'outcome':'<img src=x onerror=alert(1)> [unsafe](https://example.invalid)'})
+    render(e.root)
+    report=(e.root/'report.md').read_text(encoding='utf8')
+    assert 'Outcome: UNKNOWN' in report
+    assert '<img' not in report

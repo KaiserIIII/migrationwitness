@@ -47,3 +47,17 @@ def test_uncommitted_migration_cannot_pass(pg_bin,tmp_path):
     r=run(case,pg_bin,tmp_path/'run')
     assert r['outcome']=='FAIL'
     assert any(c['name']=='migration transaction completed' and c['ok'] is False for c in r['checks'])
+
+
+def test_multiple_assertion_result_sets_cannot_pass(pg_bin,tmp_path):
+    if hasattr(os,'geteuid') and os.geteuid()==0:pytest.skip('Unprivileged initdb required')
+    from migrationwitness.runner import run
+    import json
+    case={'name':'ambiguous-results','migration_sql':['SELECT 1'],
+          'assertions':[{'name':'all results must be unambiguous','sql':'SELECT TRUE; SELECT FALSE'}]}
+    result=run(case,pg_bin,tmp_path/'run')
+    assert result['outcome']=='INCONCLUSIVE'
+    events=[json.loads(line) for line in (tmp_path/'run/events.jsonl').read_text(encoding='utf8').splitlines()]
+    statement=next(e for e in events if e.get('query')=='SELECT TRUE; SELECT FALSE')
+    assert statement['result_set_count']==2
+    assert statement['result_sets'][1]['rows']==[[False]]

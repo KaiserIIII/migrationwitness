@@ -49,7 +49,9 @@ def test_parent_exit_does_not_leave_child_running(tmp_path):
     target=tmp_path/'late'
     child='import time,pathlib; time.sleep(.5); pathlib.Path('+repr(str(target))+').write_text("escaped")'
     parent='import subprocess,sys; subprocess.Popen([sys.executable,"-c",'+repr(child)+'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)'
-    r=execute_command([sys.executable,'-c',parent],None,allowed=True,timeout=.1)
+    # Budget cold interpreter startup; this test concerns cleanup AFTER parent exit.
+    r=execute_command([sys.executable,'-c',parent],None,allowed=True,timeout=5)
     time.sleep(.7)
     assert not target.exists()
+    assert r['timed_out'] is False
     assert r['descendants_terminated'] is True
