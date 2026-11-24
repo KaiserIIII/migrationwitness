@@ -42,9 +42,9 @@ class Evidence:
     def write_json(self, name: str, value):
         if self._sealed:
             raise RuntimeError('Run sealed')
-        if name in ('events.jsonl', 'manifest.json'):
-            raise ValueError('Reserved evidence path')
         path = _path(self.root, name)
+        if path.relative_to(self.root).as_posix() in ('events.jsonl', 'manifest.json'):
+            raise ValueError('Reserved evidence path')
         path.parent.mkdir(parents=True, exist_ok=True)
         with path.open('x', encoding='utf8') as f:
             json.dump(value, f, indent=2, ensure_ascii=False, default=str)
@@ -76,9 +76,13 @@ def verify(root: Path) -> list[str]:
         data = json.loads(manifest_path.read_text(encoding='utf8'))
         if not isinstance(data,dict) or data.get('format') != 1 or data.get('algorithm') != 'sha256' or not isinstance(data.get('files'), dict):
             raise ValueError('Invalid manifest')
+        if 'events.jsonl' not in data['files']:
+            raise ValueError('Missing event log entry')
         for name, expected in data['files'].items():
             p = _path(root, name)
-            if not isinstance(expected, str) or len(expected) != 64 or name == 'manifest.json':
+            if (name != p.relative_to(root).as_posix() or name == 'manifest.json'
+                    or not isinstance(expected, str) or len(expected) != 64
+                    or any(ch not in '0123456789abcdef' for ch in expected)):
                 raise ValueError('Invalid hash entry')
             h = hashlib.sha256()
             try:

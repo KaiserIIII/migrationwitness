@@ -123,9 +123,9 @@ jobs:
       matrix:
         include:
           - pg: '16'
-            pg_version: '16.15-r0'
+            pg_version: '16.16-r0'
           - pg: '17'
-            pg_version: '17.11-r0'
+            pg_version: '17.12-r0'
     env:
       MW_CI_CONTAINER: mw-ci-pg${{ matrix.pg }}
       MW_PG_MAJOR: ${{ matrix.pg }}
@@ -164,7 +164,7 @@ jobs:
           mkdir /evidence
           date -u +%FT%TZ > /evidence/install-started-utc.txt
           # Signed APK dependencies are recorded below. Missing exact versions fail closed.
-          apk add --no-cache python3=3.14.8-r0 py3-pip=26.1.2-r0 \
+          apk add --no-cache python3=3.14.10-r2 py3-pip=26.1.2-r1 \
             ca-certificates-bundle=20260909-r0 "postgresql${MW_PG_MAJOR}=${MW_PG_VERSION}"
           cp /lib/apk/db/installed /evidence/apk-installed.txt
           python3 -VV > /evidence/python-version.txt 2>&1

@@ -75,3 +75,31 @@ def test_markdown_heading_does_not_interpret_unsealed_outcome(tmp_path):
     report=(e.root/'report.md').read_text(encoding='utf8')
     assert 'Outcome: UNKNOWN' in report
     assert '<img' not in report
+
+
+@pytest.mark.parametrize('name', ['./manifest.json', './events.jsonl'])
+def test_reserved_evidence_aliases_rejected(tmp_path, name):
+    from migrationwitness.evidence import Evidence, verify
+    e = Evidence(tmp_path/'run')
+    with pytest.raises(ValueError, match='Reserved evidence path'):
+        e.write_json(name, {})
+    e.seal()
+    assert verify(e.root) == []
+
+
+def test_empty_manifest_without_event_log_rejected(tmp_path):
+    from migrationwitness.evidence import verify
+    (tmp_path/'manifest.json').write_text(json.dumps({
+        'format': 1, 'algorithm': 'sha256', 'files': {}}), encoding='utf8')
+    assert any('Missing event log entry' in error for error in verify(tmp_path))
+
+
+def test_noncanonical_manifest_entry_rejected(tmp_path):
+    from migrationwitness.evidence import Evidence, verify
+    e = Evidence(tmp_path/'run')
+    e.seal()
+    path = e.root/'manifest.json'
+    data = json.loads(path.read_text(encoding='utf8'))
+    data['files']['./events.jsonl'] = data['files']['events.jsonl']
+    path.write_text(json.dumps(data), encoding='utf8')
+    assert any('Invalid hash entry' in error for error in verify(e.root))
